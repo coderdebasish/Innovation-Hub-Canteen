@@ -1,12 +1,15 @@
 from glob import escape
 import os
+from timeit import repeat
 
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 clear_screen()
 escape_num = 0
-
+repet = 0
+discard = 0
+esc = 0
 while True:
     while True:
         clear_screen()
@@ -143,6 +146,7 @@ while True:
             elif choice == "2":
                 while True:
                     while True:
+                        print("which Product you want to Edit")
                         item_code = input("Enter Item Code(Example = 120) : ")
                         if item_code.isnumeric():
                             if len(item_code) == 3:
@@ -164,6 +168,8 @@ while True:
                                     print("Invalid Input! Try Again")
                                     pass
                             if b == "1":
+                                repet = 1
+                                # print(f"repet = {repet}")
                                 break
                             elif b == "0":
                                 escape_num = 1
@@ -172,51 +178,71 @@ while True:
                                 print("Invalid Input! Try Again")
                             if escape_num == 1:
                                 break
-
                     if escape_num == 1:
                         escape_num = 0
                         break
-                    f = open(f"Items\\{item_code}.txt", "r")
-                    old_name = f.readline()
-                    old_price = f.readline()
-                    old_stock = f.readline()
-                    old_name = old_name.split()
-                    old_price = old_price.split()
-                    old_stock = old_stock.split()
-                    print(f"_ _ _ Product Details _ _ _\nItem Name = {old_name}\n Item MRP/Unit = {old_price}")
                     while True:
-                        print("Which you want to Edit?\n1. Item Name\n2. MRP/Unit")
-                        d = input("Enter your Choice : ")
-                        if d == "1" or d == "0":
+
+                        if repet == 1:
+                            repet = 0
                             break
-                        else:
-                            print("Invalid Input! Try Again")
-                    if d == "1":
+                        f = open(f"Items\\{item_code}.txt", "r")
+                        old_name = f.readline()
+                        old_price = f.readline()
+                        old_stock = f.readline()
+                        old_name = old_name.strip()
+                        old_price = old_price.strip()
+                        old_stock = old_stock.strip()
+                        print(f"_ _ _ Product Details _ _ _\nItem Name = {old_name}\nItem MRP/Unit = {old_price}")
                         while True:
-                            new_name = input("Enter New Name : ")
-                            if len(new_name) < 20:
+                            print("Which you want to Edit?\n1. Item Name\n2. MRP/Unit")
+                            d = input("Enter your Choice : ")
+                            if d == "1" or d == "0":
                                 break
                             else:
                                 print("Invalid Input! Try Again")
-                        print(f"_ _ _ Preview _ _ _\nItem Name = {new_name}\n Item MRP/Unit = {old_price}")
-                        while True:
-                            e = input("Do you want to save It? (1 = Yes & 0 = No): ")
-                            if e == "1" or e == "0":
-                                if e == "1":
-                                    f = open(f"Items\\{item_code}.txt", "w")
-                                    f.write(f"{new_name}\n{old_price}\n{old_stock}")
-                                    f.close()
-                                    print("Item Updated Successfully")
-                                    break
-                                elif e == "0":
-                                    print("Item Discarded")
+                        if d == "1":
+                            while True:
+                                new_name = input("Enter New Name : ")
+                                if len(new_name) < 20:
                                     break
                                 else:
                                     print("Invalid Input! Try Again")
-                                    pass
-                            else:
-                                print("Invalid Input! Try Again")
-
+                            print(f"_ _ _ Preview _ _ _\nItem Name = {new_name}\n Item MRP/Unit = {old_price}")
+                            while True:
+                                e = input("Do you want to save It? (1 = Yes & 0 = No): ")
+                                if e == "1" or e == "0":
+                                    if e == "1":
+                                        f = open(f"Items\\{item_code}.txt", "w")
+                                        f.write(f"{new_name}\n{old_price}\n{old_stock}")
+                                        f.close()
+                                        print("Item Updated Successfully")
+                                        break
+                                    elif e == "0":
+                                        discard = 1
+                                        print("Item Discarded")
+                                        break
+                                    else:
+                                        print("Invalid Input! Try Again")
+                                        pass
+                                else:
+                                    print("Invalid Input! Try Again")
+                            if discard == 1:
+                                discard = 0
+                                while True:
+                                    esca = input("Do you want to edit another Item? (1 = Yes & 0 = No): ")
+                                    if esca == "1" or esca == "0":
+                                        break
+                                    else:
+                                        print("Invalid Input! Try Again")
+                                if esca == "0":
+                                    esc = 1
+                                break
+                        elif d == 2:
+                            
+                    if esc == 1:
+                        esc = 0
+                        break
 
             elif choice == "3":
                 # update stock
