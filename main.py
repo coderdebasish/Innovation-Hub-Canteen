@@ -8,7 +8,7 @@ import docx
 import os
 directory_path = 'Templetes'
 
-def rep_word(doc_name, old_word, new_word, new_docname):
+def rep_word(doc_name, old_word, new_word):
     doc = docx.Document(doc_name)
 
     for p in doc.paragraphs:
@@ -18,7 +18,7 @@ def rep_word(doc_name, old_word, new_word, new_docname):
                 if old_word in inline[i].text:
                     text = inline[i].text.replace(old_word, new_word)
                     inline[i].text = text
-    new_doc_name = new_docname
+    new_doc_name = "abcd.docx"
     doc.save(f"Templetes//{new_doc_name}")
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -136,9 +136,10 @@ while True:
                     num_files = len(files)
                     invno = num_files + 1
                     print("Invoice Number is = ", invno)
+                    invfile = f"{invno}.docx"
                     now = datetime.datetime.now()
                     current_datetime = now.strftime("%d-%m-%Y %H:%M:%S")
-                    rep_word(f"{file}", "111", f"INV{invno}", f"INV{invno}")
+                    # rep_word(f"{file}", "111", f"INV{invno}")
                     # rep_word("1QR.docx", "111", "001")
                 break
                     
