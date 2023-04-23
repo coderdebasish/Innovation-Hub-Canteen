@@ -1,6 +1,7 @@
 from glob import escape
 import os
 from timeit import repeat
+from xmlrpc.client import TRANSPORT_ERROR
 
 
 def clear_screen():
@@ -10,6 +11,7 @@ escape_num = 0
 repet = 0
 discard = 0
 esc = 0
+items = 0
 while True:
     while True:
         clear_screen()
@@ -85,8 +87,24 @@ while True:
                             print("Invalid Item Code. Item code Should be less than 2 Digits")
                     else:
                         print("Only numbers are allowed for Item code. Try again!")
-                break
-            
+                print("Item Added")
+                items = 1
+                item1amount = item1qty * itemprice1
+                print(f"Current Bill Amount is = {item1amount}")
+                while True:
+                    in1 = input("1. To add another item\n2. To Generate Incoice")
+                    if in1 == "1" or in1 == "2":
+                        if in1 == "1":
+                            add_item = 1
+                            break
+                        elif in1 == "2":
+                            generateinvoice = 1
+                            break
+                        else:
+                            print("Invalid Input! Please Try Again.")
+                    else:
+                        print("Invalid Input! Please Try Again.")
+                if genw
             # Reprint Invoice
     elif choice == "2":
         pass
