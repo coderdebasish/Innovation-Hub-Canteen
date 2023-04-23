@@ -2,8 +2,24 @@ from glob import escape
 import os
 from timeit import repeat
 from xmlrpc.client import TRANSPORT_ERROR
+import datetime
+from xml.dom.minidom import Document
+import docx
+import os
+directory_path = 'Templetes'
 
+def rep_word(doc_name, old_word, new_word, new_docname):
+    doc = docx.Document(doc_name)
 
+    for p in doc.paragraphs:
+        if old_word in p.text:
+            inline = p.runs
+            for i in range(len(inline)):
+                if old_word in inline[i].text:
+                    text = inline[i].text.replace(old_word, new_word)
+                    inline[i].text = text
+    new_doc_name = new_docname
+    doc.save(f"Templetes//{new_doc_name}")
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 clear_screen()
@@ -92,7 +108,7 @@ while True:
                 item1amount = item1qty * itemprice1
                 print(f"Current Bill Amount is = {item1amount}")
                 while True:
-                    in1 = input("1. To add another item\n2. To Generate Incoice")
+                    in1 = input("1. Add another item\n2. Generate Incoice")
                     if in1 == "1" or in1 == "2":
                         if in1 == "1":
                             add_item = 1
@@ -104,7 +120,28 @@ while True:
                             print("Invalid Input! Please Try Again.")
                     else:
                         print("Invalid Input! Please Try Again.")
-                if genw
+                if generateinvoice == 1:
+                    while True:
+                        paymode = input("Payment Mode:\n1. Cash Payment\n2. Upi Payment")
+                        if paymode == "1" or paymode == "2":
+                            if paymode == "1":
+                                file = "1.docx"
+                                break
+                            elif paymode == "2":
+                                file = "1QR.docx"
+                                break
+                        else:
+                            print("Invalid Input! Please Try Again.")
+                    files = os.listdir(directory_path)
+                    num_files = len(files)
+                    invno = num_files + 1
+                    print("Invoice Number is = ", invno)
+                    now = datetime.datetime.now()
+                    current_datetime = now.strftime("%d-%m-%Y %H:%M:%S")
+                    rep_word(f"{file}", "111", f"INV{invno}", f"INV{invno}")
+                    # rep_word("1QR.docx", "111", "001")
+                break
+                    
             # Reprint Invoice
     elif choice == "2":
         pass
