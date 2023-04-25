@@ -6,7 +6,12 @@ import datetime
 from xml.dom.minidom import Document
 import docx
 import os
-directory_path = 'Templetes'
+import qrcode
+from docx import Document
+from docx.shared import Inches
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+
+directory_path = 'Invoices'
 
 def rep_word(doc_name, old_word, new_word):
     doc = docx.Document(doc_name)
@@ -18,8 +23,8 @@ def rep_word(doc_name, old_word, new_word):
                 if old_word in inline[i].text:
                     text = inline[i].text.replace(old_word, new_word)
                     inline[i].text = text
-    new_doc_name = "abcd.docx"
-    doc.save(f"Templetes//{new_doc_name}")
+    new_doc_name = f"{invno}.docx"
+    doc.save(f"Invoices//{new_doc_name}")
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 clear_screen()
@@ -89,18 +94,23 @@ while True:
                 itemstock1 =itemstock1.strip()
                 itemprice1 = int(itemprice1)
                 itemstock1 = int(itemstock1)
+                f.close()
                 print(f"_ _ _ Product Details _ _ _\nItem Name = {itemname1}\nItem MRP/Unit = {itemprice1}\nItem Stock = {itemstock1}")
                 while True:
                     item1qty = input("Enter Quantity : ")
                     if item1qty.isnumeric():
                         if int(item1qty) > 0 and int(item1qty) <100:
                             item1qty = int(item1qty)
-                            if item1qty < itemstock1:
+                            if item1qty <= itemstock1:
+                                new_item_stock = (itemstock1 - item1qty)
+                                f = open(f"Items\\{item_code1}.txt", "w")
+                                f.write(f"{itemname1}\n{itemprice1}\n{new_item_stock}")
+                                f.close()
                                 break
                             else:
                                 print("You don't have enough stock to fulfill the order")
                         else:
-                            print("Invalid Item Code. Item code Should be less than 2 Digits")
+                            print("Invalid Item Code. Item Quantity Should be less than 2 Digits")
                     else:
                         print("Only numbers are allowed for Item code. Try again!")
                 print("Item Added")
@@ -112,9 +122,11 @@ while True:
                     if in1 == "1" or in1 == "2":
                         if in1 == "1":
                             add_item = 1
+                            generateinvoice = 0
                             break
                         elif in1 == "2":
                             generateinvoice = 1
+                            add_item = 0
                             break
                         else:
                             print("Invalid Input! Please Try Again.")
@@ -125,10 +137,13 @@ while True:
                         paymode = input("Payment Mode:\n1. Cash Payment\n2. Upi Payment")
                         if paymode == "1" or paymode == "2":
                             if paymode == "1":
-                                file = "1.docx"
+                                file = "Templetes//1.docx"
                                 break
                             elif paymode == "2":
-                                file = "1QR.docx"
+                                file = "Templetes//1QR.docx"
+                                link = f"upi://pay?pa=rajlakshmi.mohanty@ybl&pn=abcd&am={item1amount}&tn=Tasty Confectionary&cu=INR"
+                                img = qrcode.make(link)
+                                img.save("qrcode.png")
                                 break
                         else:
                             print("Invalid Input! Please Try Again.")
@@ -136,13 +151,121 @@ while True:
                     num_files = len(files)
                     invno = num_files + 1
                     print("Invoice Number is = ", invno)
-                    invfile = f"{invno}.docx"
                     now = datetime.datetime.now()
-                    current_datetime = now.strftime("%d-%m-%Y %H:%M:%S")
-                    # rep_word(f"{file}", "111", f"INV{invno}")
-                    # rep_word("1QR.docx", "111", "001")
-                break
-                    
+                    current_datetime = now.strftime("%d-%m-%Y        Time - %H:%M:%S")
+                    rep_word(f"{file}", "111", f"INV {invno}")
+                    rep_word(f"Invoices//{invno}.docx", "112", f"{current_datetime}")
+                    rep_word(f"Invoices//{invno}.docx", "114", f"{itemname1}")
+                    rep_word(f"Invoices//{invno}.docx", "115", f"{item1qty}")
+                    rep_word(f"Invoices//{invno}.docx", "116", f"{item1amount}")
+                    rep_word(f"Invoices//{invno}.docx", "117", f"{item1qty}")
+                    rep_word(f"Invoices//{invno}.docx", "118", f"{item1amount}")
+                    if paymode == "2":
+                        document = Document(f"Invoices//{invno}.docx")
+                        paragraph = document.add_paragraph()
+                        paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                        run = paragraph.add_run()
+                        run.add_picture('qrcode.png', width=Inches(0.85), height=Inches(0.85))
+
+                        document.save(f"Invoices//{invno}.docx")
+                    while True:
+                        if os.path.exists(f"Invoices//{invno}.docx"):
+                            break
+                    file = f"Invoices\\{invno}.docx"
+                    os.startfile(file,'print')
+                    break
+                elif add_item == 1:
+                    add_item = 0
+                    while True:
+                        print("which Product you want to ADD?")
+                        item_code2 = input("Enter Item Code(Example = 120) : ")
+                        if item_code2.isnumeric():
+                            if len(item_code2) == 3:
+                                break
+                            else:
+                                print("Invalid Item Code. Item code Should be 3 Digits")
+                        else:
+                            print("Only numbers are allowed for Item code. Try again!")
+                    while True:
+                        if os.path.exists(f"Items\\{item_code2}.txt"):
+                            break
+                        else:
+                            print("No items in your Inventory with this product code.")
+                            while True:
+                                b = input("Do you want to add another product code ? (1 = Y& 0 = No): ")
+                                if b == "1" or b == "0":
+                                    break
+                                else:
+                                    print("Invalid Input! Try Again")
+                                    pass
+                            if b == "1":
+                                repet = 1
+                                break
+                            elif b == "0":
+                                escape_num = 1
+                                break
+                            else:
+                                print("Invalid Input! Try Again")
+                            if escape_num == 1:
+                                break
+                    if escape_num == 1:
+                        escape_num = 0
+                        break
+                    while True:
+                        if repet == 1:
+                            repet = 0
+                            break
+                        f = open(f"Items\\{item_code2}.txt", "r")
+                        itemname2 = f.readline()
+                        itemprice2 = f.readline()
+                        itemstock2 = f.readline()
+                        itemname2 = itemname2.strip()
+                        itemprice2 = itemprice2.strip()
+                        itemstock2 =itemstock2.strip()
+                        itemprice2 = int(itemprice2)
+                        itemstock2 = int(itemstock2)
+                        f.close()
+                        print(f"_ _ _ Product Details _ _ _\nItem Name = {itemname2}\nItem MRP/Unit = {itemprice2}\nItem Stock =        {itemstock2}")
+                        while True:
+                            item2qty = input("Enter Quantity : ")
+                            if item2qty.isnumeric():
+                                if int(item2qty) > 0 and int(item2qty) <100:
+                                    item2qty = int(item2qty)
+                                    if item2qty <= itemstock2:
+                                        new_item_stock = (itemstock2 - item2qty)
+                                        f = open(f"Items\\{item_code2}.txt", "w")
+                                        f.write(f"{itemname2}\n{itemprice2}\n{new_item_stock}")
+                                        f.close()
+                                        break
+                                    else:
+                                        print("You don't have enough stock to fulfill the order")
+                                else:
+                                    print("Invalid Item Code. Item Quantity Should be less than 2 Digits")
+                            else:
+                                print("Only numbers are allowed for Item code. Try again!")
+                        print("Item Added")
+                        items = 2
+                        item1amount = item1qty * itemprice1
+                        item2amount = item2qty * itemprice2
+
+                        print(f"Current Bill Amount is = {item1amount+item2amount}")
+                        while True:
+                            in1 = input("1. Add another item\n2. Generate Incoice")
+                            if in1 == "1" or in1 == "2":
+                                if in1 == "1":
+                                    add_item = 1
+                                    break
+                                elif in1 == "2":
+                                    generateinvoice = 1
+                                    break
+                                else:
+                                    print("Invalid Input! Please Try Again.")
+                            else:
+                                print("Invalid Input! Please Try Again.")
+
+            if generateinvoice == 1:
+                generateinvoice = 0
+                break        
             # Reprint Invoice
     elif choice == "2":
         pass
@@ -236,7 +359,7 @@ while True:
                     new_item_stock = input("Enter opening stock = ")
                     if new_item_stock.isnumeric():
                         new_item_stock = int(new_item_stock)
-                        if new_item_stock > 0 and new_item_stock < 1000:
+                        if new_item_stock >= 0 and new_item_stock < 1000:
                             break
                         else:
                             print("Invalid Input! Try Again")
