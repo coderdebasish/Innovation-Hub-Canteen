@@ -43,7 +43,7 @@ generateinvoice7 = 0
 generateinvoice8 = 0
 while True:
     while True:
-        clear_screen()
+        # clear_screen()
         print("Welcome to Invoicing Software")
         print("Choose numbers below \n1. Generate Invoice\n2. Reprint Invoice\n3. View Bills\n4. Products Available\n5. Search Product\n6. Admin Panel")
         choice = input("Enter Your Choice: ")
@@ -670,7 +670,7 @@ while True:
                                                         rep_word(f"Invoices//{invno}.docx", "116", f"{item1amount}")
                                                         rep_word(f"Invoices//{invno}.docx", "117", f"{itemname2}")
                                                         rep_word(f"Invoices//{invno}.docx", "118", f"{item2qty}")
-                                                        rep_word(f"Invoices//{invno}.docx", "119", f"{item2amount}")
+                                                        rep_word(f"Invoices//{invno}.docx", "66", f"{item2amount}")
                                                         rep_word(f"Invoices//{invno}.docx", "120", f"{itemname3}")
                                                         rep_word(f"Invoices//{invno}.docx", "121", f"{item3qty}")
                                                         rep_word(f"Invoices//{invno}.docx", "122", f"{item3amount}")
@@ -1332,11 +1332,12 @@ while True:
 
                                                                                                     print(f"Current Bill Amount is = {item8total}")
                                                                                                     while True:
-                                                                                                        in3 = input("1. Add another item\n2. Generate Incoice\n Enter your Choice : ")
+                                                                                                        in3 = input("2. Generate Incoice\n Enter your Choice : ")
                                                                                                         if in3 == "1" or in3 == "2":
                                                                                                             if in3 == "1":
-                                                                                                                add_item9 = 1
-                                                                                                                break
+                                                                                                                print("Sorry! You can add 8 Items only.")
+                                                                                                                # add_item9 = 1
+                                                                                                                # break
                                                                                                             elif in3 == "2":
                                                                                                                 generateinvoice8 = 1
                                                                                                                 break
@@ -1371,10 +1372,10 @@ while True:
                                                                                                         rep_word(f"Invoices//{invno}.docx", "112", f"{current_datetime}")
                                                                                                         rep_word(f"Invoices//{invno}.docx", "114", f"{itemname1}")
                                                                                                         rep_word(f"Invoices//{invno}.docx", "115", f"{item1qty}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "116", f"{item1amount}")
+                                                                                                        rep_word(f"Invoices//{invno}.docx", "199", f"{item1amount}")
                                                                                                         rep_word(f"Invoices//{invno}.docx", "117", f"{itemname2}")
                                                                                                         rep_word(f"Invoices//{invno}.docx", "118", f"{item2qty}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "119", f"{item2amount}")
+                                                                                                        rep_word(f"Invoices//{invno}.docx", "290", f"{item2amount}")
                                                                                                         rep_word(f"Invoices//{invno}.docx", "120", f"{itemname3}")
                                                                                                         rep_word(f"Invoices//{invno}.docx", "121", f"{item3qty}")
                                                                                                         rep_word(f"Invoices//{invno}.docx", "122", f"{item3amount}")
@@ -1384,7 +1385,7 @@ while True:
                                                                                                         rep_word(f"Invoices//{invno}.docx", "126", f"{itemname5}")
                                                                                                         rep_word(f"Invoices//{invno}.docx", "127", f"{item5qty}")
                                                                                                         rep_word(f"Invoices//{invno}.docx", "128", f"{item5amount}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "129", f"{itemname6}")
+                                                                                                        rep_word(f"Invoices//{invno}.docx", "193", f"{itemname6}")
                                                                                                         rep_word(f"Invoices//{invno}.docx", "130", f"{item6qty}")
                                                                                                         rep_word(f"Invoices//{invno}.docx", "131", f"{item6amount}")
                                                                                                         rep_word(f"Invoices//{invno}.docx", "132", f"{itemname7}")
@@ -1411,400 +1412,6 @@ while True:
                                                                                                         os.startfile(file,'print')
                                                                                                         esc = 1
                                                                                                         break
-                                                                                                    elif add_item9 == 1: # item 9
-                                                                                                        add_item9 = 0
-                                                                                                        while True:
-                                                                                                            while True:
-                                                                                                                print("which Product you want to ADD?")
-                                                                                                                item_code9 = input("Enter Item Code(Example = 120) : ")
-                                                                                                                if item_code9.isnumeric():
-                                                                                                                    if len(item_code9) == 3:
-                                                                                                                        break
-                                                                                                                    else:
-                                                                                                                        print("Invalid Item Code. Item code Should be 3 Digits")
-                                                                                                                else:
-                                                                                                                    print("Only numbers are allowed for Item code. Try again!")
-                                                                                                            while True:
-                                                                                                                if os.path.exists(f"Items\\{item_code9}.txt"):
-                                                                                                                    break
-                                                                                                                else:
-                                                                                                                    print("No items in your Inventory with this product code.")
-                                                                                                                    while True:
-                                                                                                                        repet = 0
-                                                                                                                        escape_num = 0
-                                                                                                                        b = input("Do you want to add another product code ? (1 = Y& 0 = No): ")
-                                                                                                                        if b == "1" or b == "0":
-                                                                                                                            break
-                                                                                                                        else:
-                                                                                                                            print("Invalid Input! Try Again")
-                                                                                                                            pass
-                                                                                                                    if b == "1":
-                                                                                                                        repet = 1
-                                                                                                                        break
-                                                                                                                    elif b == "0":
-                                                                                                                        escape_num = 1
-                                                                                                                        break
-                                                                                                                    else:
-                                                                                                                        print("Invalid Input! Try Again")
-                                                                                                                    if escape_num == 1:
-                                                                                                                        break
-                                                                                                            if escape_num == 1:
-                                                                                                                escape_num = 0
-                                                                                                                break
-                                                                                                            while True:
-                                                                                                                if repet == 1:
-                                                                                                                    repet = 0
-                                                                                                                    break
-                                                                                                                f = open(f"Items\\{item_code9}.txt", "r")
-                                                                                                                itemname9 = f.readline()
-                                                                                                                itemprice9 = f.readline()
-                                                                                                                itemstock9 = f.readline()
-                                                                                                                itemname9 = itemname9.strip()
-                                                                                                                itemprice9 = itemprice9.strip()
-                                                                                                                itemstock9 =itemstock9.strip()
-                                                                                                                itemprice9 = int(itemprice9)
-                                                                                                                itemstock9 = int(itemstock9)
-                                                                                                                f.close()
-                                                                                                                print(f"_ _ _ Product Details _ _ _\nItem Name = {itemname9}\nItem MRP/Unit = {itemprice9}\nItem Stock = {itemstock9}")
-                                                                                                                while True:
-                                                                                                                    item9qty = input("Enter Quantity : ")
-                                                                                                                    if item9qty.isnumeric():
-                                                                                                                        if int(item9qty) >= 0 and int(item9qty) <100:
-                                                                                                                            item9qty = int(item9qty)
-                                                                                                                            if item9qty <= itemstock9:
-                                                                                                                                new_item_stock = (itemstock9 - item9qty)
-                                                                                                                                f = open(f"Items\\{item_code9}.txt", "w")
-                                                                                                                                f.write(f"{itemname9}\n{itemprice9}\n{new_item_stock}")
-                                                                                                                                f.close()
-                                                                                                                                print("New Item Stock = ", new_item_stock)
-                                                                                                                                break
-                                                                                                                            else:
-                                                                                                                                print("You don't have enough stock to fulfill the order")
-                                                                                                                                while True:
-                                                                                                                                    c = input("Do you want to continue with this stock ? (1 = Y& 0 = No): ")
-                                                                                                                                    if c == "1" or c == "0":
-                                                                                                                                        break
-                                                                                                                                    else:
-                                                                                                                                        print("Invalid Input! Try Again")
-                                                                                                                                        pass
-                                                                                                                                if c == "1":
-                                                                                                                                    pass
-                                                                                                                                elif c == "0":
-                                                                                                                                    acer = 1
-                                                                                                                                    break
-                                                                                                                                else:
-                                                                                                                                    print("Invalid Input! Try Again")
-                                                                                                                        else:
-                                                                                                                            print("Invalid Item Code. Item Quantity Should be less than 2 Digits")
-                                                                                                                    else:
-                                                                                                                        print("Only numbers are allowed for Item code. Try again!")
-                                                                                                                if acer == 1:
-                                                                                                                    acer = 0
-                                                                                                                    break
-
-                                                                                                                print("Item 9 Added")
-                                                                                                                items = 9
-                                                                                                                item1amount = item1qty * itemprice1
-                                                                                                                item2amount = item2qty * itemprice2
-                                                                                                                item3amount = item3qty * itemprice3
-                                                                                                                item4amount = item4qty * itemprice4
-                                                                                                                item5amount = item5qty * itemprice5
-                                                                                                                item6amount = item6qty * itemprice6
-                                                                                                                item7amount = item7qty * itemprice7
-                                                                                                                item8amount = item8qty * itemprice8
-                                                                                                                item9amount = item9qty * itemprice9
-                                                                                                                item9total = item1amount+item2amount+item3amount+item4amount+item5amount+item6amount+item7amount+item8amount+item9amount
-                                                                                                                item9qtytotal = item1qty + item2qty + item3qty + item4qty + item5qty + item6qty + item7qty + item8qty + item9qty
-
-                                                                                                                print(f"Current Bill Amount is = {item9total}")
-                                                                                                                while True:
-                                                                                                                    in3 = input("1. Add another item\n2. Generate Incoice\n Enter your Choice : ")
-                                                                                                                    if in3 == "1" or in3 == "2":
-                                                                                                                        if in3 == "1":
-                                                                                                                            add_item10 = 1
-                                                                                                                            break
-                                                                                                                        elif in3 == "2":
-                                                                                                                            generateinvoice9 = 1
-                                                                                                                            break
-                                                                                                                        else:
-                                                                                                                            print("Invalid Input! Please Try Again.")
-                                                                                                                    else:
-                                                                                                                        print("Invalid Input! Please Try Again.")
-
-                                                                                                                if generateinvoice9 == 1:
-                                                                                                                    generateinvoice9 = 0
-                                                                                                                    while True:
-                                                                                                                        paymode3 = input("Payment Mode:\n1. Cash Payment\n2. Upi Payment\n Enter your Choice : ")
-                                                                                                                        if paymode3 == "1" or paymode3 == "2":
-                                                                                                                            if paymode3 == "1":
-                                                                                                                                file2 = "Templetes//9.docx"
-                                                                                                                                break
-                                                                                                                            elif paymode3 == "2":
-                                                                                                                                file2 = "Templetes//9QR.docx"
-                                                                                                                                link = f"upi://pay?pa=rajlakshmi.mohanty@ybl&pn=abcd&am={item9total}&tn=Tasty Confectionary&cu=INR"
-                                                                                                                                img = qrcode.make(link)
-                                                                                                                                img.save("qrcode.png")
-                                                                                                                                break
-                                                                                                                        else:
-                                                                                                                            print("Invalid Input! Please Try Again.")
-                                                                                                                    files = os.listdir(directory_path)
-                                                                                                                    num_files = len(files)
-                                                                                                                    invno = num_files + 1
-                                                                                                                    print("Invoice Number is = ", invno)
-                                                                                                                    now = datetime.datetime.now()
-                                                                                                                    current_datetime = now.strftime("%d-%m-%Y        Time - %H:%M:%S")
-                                                                                                                    rep_word(f"{file2}", "111", f"INV {invno}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "112", f"{current_datetime}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "114", f"{itemname1}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "115", f"{item1qty}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "116", f"{item1amount}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "117", f"{itemname2}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "118", f"{item2qty}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "119", f"{item2amount}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "120", f"{itemname3}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "121", f"{item3qty}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "122", f"{item3amount}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "123", f"{itemname4}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "124", f"{item4qty}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "125", f"{item4amount}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "126", f"{itemname5}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "127", f"{item5qty}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "128", f"{item5amount}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "129", f"{itemname6}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "130", f"{item6qty}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "131", f"{item6amount}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "132", f"{itemname7}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "133", f"{item7qty}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "134", f"{item7amount}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "135", f"{itemname8}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "136", f"{item8qty}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "137", f"{item8amount}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "138", f"{itemname9}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "139", f"{item9qty}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "140", f"{item9amount}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "55", f"{item9qtytotal}")
-                                                                                                                    rep_word(f"Invoices//{invno}.docx", "99", f"{item9total}")
-                                                                                                                    # print(item2total, "=" , item2qtytotal)
-                                                                                                                    if paymode3 == "2":
-                                                                                                                        document = Document(f"Invoices//{invno}.docx")
-                                                                                                                        paragraph = document.add_paragraph()
-                                                                                                                        paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
-                                                                                                                        run = paragraph.add_run()
-                                                                                                                        run.add_picture('qrcode.png', width=Inches(0.8), height=Inches(0.8))
-
-                                                                                                                        document.save(f"Invoices//{invno}.docx")
-                                                                                                                    while True:
-                                                                                                                        if os.path.exists(f"Invoices//{invno}.docx"):
-                                                                                                                            break
-                                                                                                                    file = f"Invoices\\{invno}.docx"
-                                                                                                                    os.startfile(file,'print')
-                                                                                                                    esc = 1
-                                                                                                                    break
-                                                                                                                elif add_item10 == 1: # item 10
-                                                                                                                    add_item10 = 0
-                                                                                                                    while True:
-                                                                                                                        while True:
-                                                                                                                            print("which Product you want to ADD?")
-                                                                                                                            item_code10 = input("Enter Item Code(Example = 120) : ")
-                                                                                                                            if item_code10.isnumeric():
-                                                                                                                                if len(item_code10) == 3:
-                                                                                                                                    break
-                                                                                                                                else:
-                                                                                                                                    print("Invalid Item Code. Item code Should be 3 Digits")
-                                                                                                                            else:
-                                                                                                                                print("Only numbers are allowed for Item code. Try again!")
-                                                                                                                        while True:
-                                                                                                                            if os.path.exists(f"Items\\{item_code10}.txt"):
-                                                                                                                                break
-                                                                                                                            else:
-                                                                                                                                print("No items in your Inventory with this product code.")
-                                                                                                                                while True:
-                                                                                                                                    repet = 0
-                                                                                                                                    escape_num = 0
-                                                                                                                                    b = input("Do you want to add another product code ? (1 = Y& 0 = No): ")
-                                                                                                                                    if b == "1" or b == "0":
-                                                                                                                                        break
-                                                                                                                                    else:
-                                                                                                                                        print("Invalid Input! Try Again")
-                                                                                                                                        pass
-                                                                                                                                if b == "1":
-                                                                                                                                    repet = 1
-                                                                                                                                    break
-                                                                                                                                elif b == "0":
-                                                                                                                                    escape_num = 1
-                                                                                                                                    break
-                                                                                                                                else:
-                                                                                                                                    print("Invalid Input! Try Again")
-                                                                                                                                if escape_num == 1:
-                                                                                                                                    break
-                                                                                                                        if escape_num == 1:
-                                                                                                                            escape_num = 0
-                                                                                                                            break
-                                                                                                                        while True:
-                                                                                                                            if repet == 1:
-                                                                                                                                repet = 0
-                                                                                                                                break
-                                                                                                                            f = open(f"Items\\{item_code10}.txt", "r")
-                                                                                                                            itemname10 = f.readline()
-                                                                                                                            itemprice10 = f.readline()
-                                                                                                                            itemstock10 = f.readline()
-                                                                                                                            itemname10 = itemname10.strip()
-                                                                                                                            itemprice10 = itemprice10.strip()
-                                                                                                                            itemstock10 =itemstock10.strip()
-                                                                                                                            itemprice10 = int(itemprice10)
-                                                                                                                            itemstock10 = int(itemstock10)
-                                                                                                                            f.close()
-                                                                                                                            print(f"_ _ _ Product Details _ _ _\nItem Name = {itemname10}\nItem MRP/Unit = {itemprice10}\nItem Stock = {itemstock10}")
-                                                                                                                            while True:
-                                                                                                                                item10qty = input("Enter Quantity : ")
-                                                                                                                                if item10qty.isnumeric():
-                                                                                                                                    if int(item10qty) >= 0 and int(item10qty) <100:
-                                                                                                                                        item10qty = int(item10qty)
-                                                                                                                                        if item10qty <= itemstock10:
-                                                                                                                                            new_item_stock = (itemstock10 - item10qty)
-                                                                                                                                            f = open(f"Items\\{item_code10}.txt", "w")
-                                                                                                                                            f.write(f"{itemname10}\n{itemprice10}\n{new_item_stock}")
-                                                                                                                                            f.close()
-                                                                                                                                            print("New Item Stock = ", new_item_stock)
-                                                                                                                                            break
-                                                                                                                                        else:
-                                                                                                                                            print("You don't have enough stock to fulfill the order")
-                                                                                                                                            while True:
-                                                                                                                                                c = input("Do you want to continue with this stock ? (1 = Y& 0 = No): ")
-                                                                                                                                                if c == "1" or c == "0":
-                                                                                                                                                    break
-                                                                                                                                                else:
-                                                                                                                                                    print("Invalid Input! Try Again")
-                                                                                                                                                    pass
-                                                                                                                                            if c == "1":
-                                                                                                                                                pass
-                                                                                                                                            elif c == "0":
-                                                                                                                                                acer = 1
-                                                                                                                                                break
-                                                                                                                                            else:
-                                                                                                                                                print("Invalid Input! Try Again")
-                                                                                                                                    else:
-                                                                                                                                        print("Invalid Item Code. Item Quantity Should be less than 2 Digits")
-                                                                                                                                else:
-                                                                                                                                    print("Only numbers are allowed for Item code. Try again!")
-                                                                                                                            if acer == 1:
-                                                                                                                                acer = 0
-                                                                                                                                break
-
-                                                                                                                            print("Item 10 Added")
-                                                                                                                            items = 10
-                                                                                                                            item1amount = item1qty * itemprice1
-                                                                                                                            item2amount = item2qty * itemprice2
-                                                                                                                            item3amount = item3qty * itemprice3
-                                                                                                                            item4amount = item4qty * itemprice4
-                                                                                                                            item5amount = item5qty * itemprice5
-                                                                                                                            item6amount = item6qty * itemprice6
-                                                                                                                            item7amount = item7qty * itemprice7
-                                                                                                                            item8amount = item8qty * itemprice8
-                                                                                                                            item9amount = item9qty * itemprice9
-                                                                                                                            item10amount = item10qty * itemprice10
-                                                                                                                            item10total = item1amount+item2amount+item3amount+item4amount+item5amount+item6amount+item7amount+item8amount+item9amount+item10amount
-                                                                                                                            item10qtytotal = item1qty + item2qty + item3qty + item4qty + item5qty + item6qty + item7qty + item8qty + item9qty+item10qty
-
-                                                                                                                            print(f"Current Bill Amount is = {item10total}")
-                                                                                                                            while True:
-                                                                                                                                in3 = input("1. Add another item\n2. Generate Incoice\n Enter your Choice : ")
-                                                                                                                                if in3 == "1" or in3 == "2":
-                                                                                                                                    if in3 == "1":
-                                                                                                                                        add_item11 = 1
-                                                                                                                                        break
-                                                                                                                                    elif in3 == "2":
-                                                                                                                                        generateinvoice10 = 1
-                                                                                                                                        break
-                                                                                                                                    else:
-                                                                                                                                        print("Invalid Input! Please Try Again.")
-                                                                                                                                else:
-                                                                                                                                    print("Invalid Input! Please Try Again.")
-
-                                                                                                                            if generateinvoice11 == 1:
-                                                                                                                                generateinvoice11 = 0
-                                                                                                                                while True:
-                                                                                                                                    paymode3 = input("Payment Mode:\n1. Cash Payment\n2. Upi Payment\n Enter your Choice : ")
-                                                                                                                                    if paymode3 == "1" or paymode3 == "2":
-                                                                                                                                        if paymode3 == "1":
-                                                                                                                                            file2 = "Templetes//10.docx"
-                                                                                                                                            break
-                                                                                                                                        elif paymode3 == "2":
-                                                                                                                                            file2 = "Templetes//10QR.docx"
-                                                                                                                                            link = f"upi://pay?pa=rajlakshmi.mohanty@ybl&pn=abcd&am={item10total}&tn=Tasty Confectionary&cu=INR"
-                                                                                                                                            img = qrcode.make(link)
-                                                                                                                                            img.save("qrcode.png")
-                                                                                                                                            break
-                                                                                                                                    else:
-                                                                                                                                        print("Invalid Input! Please Try Again.")
-                                                                                                                                files = os.listdir(directory_path)
-                                                                                                                                num_files = len(files)
-                                                                                                                                invno = num_files + 1
-                                                                                                                                print("Invoice Number is = ", invno)
-                                                                                                                                now = datetime.datetime.now()
-                                                                                                                                current_datetime = now.strftime("%d-%m-%Y        Time - %H:%M:%S")
-                                                                                                                                rep_word(f"{file2}", "111", f"INV {invno}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "112", f"{current_datetime}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "114", f"{itemname1}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "115", f"{item1qty}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "116", f"{item1amount}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "117", f"{itemname2}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "118", f"{item2qty}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "119", f"{item2amount}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "120", f"{itemname3}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "121", f"{item3qty}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "122", f"{item3amount}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "123", f"{itemname4}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "124", f"{item4qty}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "125", f"{item4amount}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "126", f"{itemname5}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "127", f"{item5qty}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "128", f"{item5amount}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "129", f"{itemname6}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "130", f"{item6qty}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "131", f"{item6amount}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "132", f"{itemname7}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "133", f"{item7qty}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "134", f"{item7amount}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "135", f"{itemname8}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "136", f"{item8qty}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "137", f"{item8amount}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "138", f"{itemname9}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "139", f"{item9qty}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "140", f"{item9amount}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "141", f"{itemname10}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "142", f"{item10qty}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "143", f"{item10amount}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "55", f"{item10qtytotal}")
-                                                                                                                                rep_word(f"Invoices//{invno}.docx", "99", f"{item10total}")
-                                                                                                                                # print(item2total, "=" , item2qtytotal)
-                                                                                                                                if paymode3 == "2":
-                                                                                                                                    document = Document(f"Invoices//{invno}.docx")
-                                                                                                                                    paragraph = document.add_paragraph()
-                                                                                                                                    paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
-                                                                                                                                    run = paragraph.add_run()
-                                                                                                                                    run.add_picture('qrcode.png', width=Inches(0.8), height=Inches(0.8))
-
-                                                                                                                                    document.save(f"Invoices//{invno}.docx")
-                                                                                                                                while True:
-                                                                                                                                    if os.path.exists(f"Invoices//{invno}.docx"):
-                                                                                                                                        break
-                                                                                                                                file = f"Invoices\\{invno}.docx"
-                                                                                                                                os.startfile(file,'print')
-                                                                                                                                esc = 1
-                                                                                                                                break
-                                                                                                                            if esc == 1:
-                                                                                                                                break
-                                                                                                                        if esc == 1:
-                                                                                                                            break
-                                                                                                                    if esc == 1:
-                                                                                                                        break
-                                                                                                                if esc == 1:
-                                                                                                                    break
-                                                                                                            if esc == 1:
-                                                                                                                break
-                                                                                                        if esc == 1:
-                                                                                                            break
                                                                                                     if esc == 1:
                                                                                                         break
                                                                                                 if esc == 1:
