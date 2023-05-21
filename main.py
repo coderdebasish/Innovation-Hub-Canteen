@@ -1,3 +1,4 @@
+from fileinput import filename
 from glob import escape
 import os
 from timeit import repeat
@@ -34,6 +35,7 @@ discard = 0
 esc = 0
 items = 0
 acer = 0
+qwe = 0
 generateinvoice2 = 0
 generateinvoice3 = 0
 generateinvoice4 = 0
@@ -44,10 +46,12 @@ generateinvoice8 = 0
 while True:
     while True:
         # clear_screen()
-        print("Welcome to Invoicing Software")
-        print("Choose numbers below \n1. Generate Invoice\n2. Reprint Invoice\n3. View Bills\n4. Products Available\n5. Search Product\n6. Admin Panel")
+        print("---------------------------------------------------------")
+        print("             Welcome to Invoicing Software")
+        print("---------------------------------------------------------")
+        print("Choose numbers below \n1. Generate Invoice\n2. Reprint last Invoice\n3. Reprint Invoice\n4. View Bills\n5. Products Available\n6. Search Product\n7. Admin Panel")
         choice = input("Enter Your Choice: ")
-        if (choice == "1" or choice == "2" or choice == "3" or choice == "4" or choice == "5" or choice == "6"):
+        if (choice == "1" or choice == "2" or choice == "3" or choice == "4" or choice == "5" or choice == "6" or choice == "7"):
             break
         else:
             print("Invalid Input! Try Again")
@@ -197,7 +201,7 @@ while True:
                         if os.path.exists(f"Invoices//{invno}.docx"):
                             break
                     file = f"Invoices\\{invno}.docx"
-                    os.startfile(file,'print')
+                    os.startfile(file)
                     esc = 1
                     break
                 elif add_item1 == 1: # item 2
@@ -358,7 +362,7 @@ while True:
                                     if os.path.exists(f"Invoices//{invno}.docx"):
                                         break
                                 file = f"Invoices\\{invno}.docx"
-                                os.startfile(file,'print')
+                                os.startfile(file)
                                 esc = 1
                                 break
                             elif add_item2 == 1: # item 3
@@ -523,7 +527,7 @@ while True:
                                                 if os.path.exists(f"Invoices//{invno}.docx"):
                                                     break
                                             file = f"Invoices\\{invno}.docx"
-                                            os.startfile(file,'print')
+                                            os.startfile(file)
                                             esc = 1
                                             break
                                         elif add_item4 == 1: # item 4
@@ -692,7 +696,7 @@ while True:
                                                             if os.path.exists(f"Invoices//{invno}.docx"):
                                                                 break
                                                         file = f"Invoices\\{invno}.docx"
-                                                        os.startfile(file,'print')
+                                                        os.startfile(file)
                                                         esc = 1
                                                         break
                                                     elif add_item5 == 1: # item 5
@@ -865,7 +869,7 @@ while True:
                                                                         if os.path.exists(f"Invoices//{invno}.docx"):
                                                                             break
                                                                     file = f"Invoices\\{invno}.docx"
-                                                                    os.startfile(file,'print')
+                                                                    os.startfile(file)
                                                                     esc = 1
                                                                     break
                                                                 elif add_item6 == 1: # item 6
@@ -1042,7 +1046,7 @@ while True:
                                                                                     if os.path.exists(f"Invoices//{invno}.docx"):
                                                                                         break
                                                                                 file = f"Invoices\\{invno}.docx"
-                                                                                os.startfile(file,'print')
+                                                                                os.startfile(file)
                                                                                 esc = 1
                                                                                 break
                                                                             elif add_item7 == 1: # item 7
@@ -1223,7 +1227,7 @@ while True:
                                                                                                 if os.path.exists(f"Invoices//{invno}.docx"):
                                                                                                     break
                                                                                             file = f"Invoices\\{invno}.docx"
-                                                                                            os.startfile(file,'print')
+                                                                                            os.startfile(file)
                                                                                             esc = 1
                                                                                             break
                                                                                         elif add_item8 == 1: # item 8
@@ -1409,7 +1413,7 @@ while True:
                                                                                                             if os.path.exists(f"Invoices//{invno}.docx"):
                                                                                                                 break
                                                                                                         file = f"Invoices\\{invno}.docx"
-                                                                                                        os.startfile(file,'print')
+                                                                                                        os.startfile(file)
                                                                                                         esc = 1
                                                                                                         break
                                                                                                     if esc == 1:
@@ -1459,20 +1463,135 @@ while True:
             if esc == 1:
                 break
                     
-            # Reprint Invoice
+            # Reprint last Invoice
     elif choice == "2":
-        pass
-            # View Bills
+        files = os.listdir(directory_path)
+        num_files = len(files)
+        invno = num_files
+        file = f"{directory_path}\\{invno}.docx"
+        os.startfile(file, "print")
+            # Reprint Invoice
     elif choice == "3":
-        pass
-            # Products Available 
+        while True:
+            print("---------------------------")
+            print("      Invoice Reprint     ")
+            print("---------------------------")
+            while True:
+                bill = input("Press 0000 To exit \nEnter Bill No. :")
+                if bill.isnumeric():
+                    if len(bill) > 0 or bill == "0000":
+                        if bill == "0000":
+                            qwe = 1
+                            break
+                        else:
+                            if os.path.exists(f"Invoices\\{bill}.docx"):
+                                file = f"Invoices\\{bill}.docx"
+                                os.startfile(file,'print')
+                                break
+                            else:
+                                print("No Invoice in your Invoices with this Invoice No.")
+                    else:
+                        print("Invalid Item Code. Item code Should be 3 Digits")
+                else:
+                    print("Only numbers are allowed for Invoice Number. Try again!")
+            if qwe == 1:
+                qwe = 0
+                break
+            # View Bills
     elif choice == "4":
-        pass
-            # Search Products
+        while True:
+            print("---------------------------")
+            print("        View Invoice       ")
+            print("---------------------------")
+            while True:
+                bill = input("Press 0000 To exit \nEnter Bill No. :")
+                if bill.isnumeric():
+                    if len(bill) > 0 or bill == "0000":
+                        if bill == "0000":
+                            qwe = 1
+                            break
+                        else:
+                            if os.path.exists(f"Invoices\\{bill}.docx"):
+                                file = f"Invoices\\{bill}.docx"
+                                os.startfile(file)
+                                break
+                            else:
+                                print("No Invoice in your Invoices with this Invoice No.")
+                    else:
+                        print("Invalid Item Code. Item code Should be 3 Digits")
+                else:
+                    print("Only numbers are allowed for Invoice Number. Try again!")
+            if qwe == 1:
+                qwe = 0
+                break
+            # Products Available 
     elif choice == "5":
-        pass
-            # Admin Panel
+        print("---------------------------------")
+        print("        Available Products       ")
+        print("---------------------------------")
+        directory_path = "Items\\"
+        print("Code    Item Name   Price/Unit  Stock")
+        print("-------------------------------------")
+        # Iterate through each file in the directory
+        for file_name in os.listdir(directory_path):
+            if file_name.endswith(".txt"):  # Check if the file is a text file
+                file_path = os.path.join(directory_path, file_name)
+                with open(file_path, 'r') as file:
+                    first_line = file.readline().strip()
+                    second_line = file.readline().strip()
+                    third_line = file.readline().strip()
+
+                    if int(third_line) == 0:
+                        continue
+                    file_name = file_name[0:3]
+                    length = len(first_line)
+                    first_line = first_line + (17-length)*" "
+                    print(f"{file_name} : {first_line}: {second_line} \t{third_line}")
+                    # Search Products
     elif choice == "6":
+        print("---------------------------------")
+        print("        Available Products       ")
+        print("---------------------------------")
+        while True:
+            print("Press 0000 to exit")
+            while True:
+                print("which Product you want to Check?")
+                item_code = input("Enter Item Code(Example = 120) : ")
+                if item_code == "0000":
+                    qwe = 1
+                    break
+
+                if item_code.isnumeric():
+                    if len(item_code) == 3:
+                        if os.path.exists(f"Items\\{item_code}.txt"):
+                            f = open(f"Items\\{item_code}.txt", "r")
+                            itemname = f.readline()
+                            itemprice = f.readline()
+                            itemstock = f.readline()
+                            itemname = itemname.strip()
+                            itemprice = itemprice.strip()
+                            itemstock =itemstock.strip()
+                            itemprice = int(itemprice)
+                            itemstock = int(itemstock)
+                            f.close()
+                            if itemstock > 0:
+                                print("\nThis Item is Available\n")
+                            else:
+                                print("\nThis Item is not Available\n")
+                            print(f"_ _ _ Product Details _ _ _\nItem Name = {itemname}\nItem Price/unit = {itemprice}\nItem Stock = {itemstock}\n")
+                    else:
+                        print("Invalid Item Code. Item code Should be 3 Digits")
+                else:
+                    print("Only numbers are allowed for Item code. Try again!")
+            if qwe == 1:
+                qwe = 0
+                break
+
+            # Admin Panel
+    elif choice == "7":
+        print("---------------------------------")
+        print("           Admin Panel           ")
+        print("---------------------------------")
         while True:
             admin_code = "5"
             a = input("Enter Admin Pass Code: ")
@@ -1541,7 +1660,7 @@ while True:
                     new_item_price = input("Enter MRP/Unit = ")
                     if new_item_price.isnumeric():
                         new_item_price = int(new_item_price)
-                        if new_item_price > 0 and new_item_price < 10000:
+                        if new_item_price > 0 and new_item_price <= 10000:
                             break
                         else:
                             print("Invalid Input! Try Again")
@@ -1552,7 +1671,7 @@ while True:
                     new_item_stock = input("Enter opening stock = ")
                     if new_item_stock.isnumeric():
                         new_item_stock = int(new_item_stock)
-                        if new_item_stock >= 0 and new_item_stock < 1000:
+                        if new_item_stock >= 0 and new_item_stock <= 1000:
                             break
                         else:
                             print("Invalid Input! Try Again")
