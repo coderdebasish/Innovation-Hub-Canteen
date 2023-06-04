@@ -171,7 +171,7 @@ while True:
                                 break
                             elif paymode == "2":
                                 file = "Templetes//1QR.docx"
-                                link = f"upi://pay?pa=rajlakshmi.mohanty@ybl&pn=abcd&am={item1amount}&tn=Tasty Confectionary&cu=INR"
+                                link = f"upi://pay?pa=nanigopalkaran77777@oksbi&pn=Tasty Confectionary&am={item1amount}&tn=Tasty Confectionary&cu=INR"
                                 img = qrcode.make(link)
                                 img.save("qrcode.png")
                                 break
@@ -327,7 +327,7 @@ while True:
                                             break
                                         elif paymode2 == "2":
                                             file2 = "Templetes//2QR.docx"
-                                            link = f"upi://pay?pa=rajlakshmi.mohanty@ybl&pn=abcd&am={item2total}&tn=Tasty Confectionary&cu=INR"
+                                            link = f"upi://pay?pa=nanigopalkaran77777@oksbi&pn=Tasty Confectionary&am={item2total}&tn=Tasty Confectionary&cu=INR"
                                             img = qrcode.make(link)
                                             img.save("qrcode.png")
                                             break
@@ -489,7 +489,7 @@ while True:
                                                         break
                                                     elif paymode2 == "2":
                                                         file2 = "Templetes//3QR.docx"
-                                                        link = f"upi://pay?pa=rajlakshmi.mohanty@ybl&pn=abcd&am={item3total}&tn=Tasty Confectionary&cu=INR"
+                                                        link = f"upi://pay?pa=nanigopalkaran77777@oksbi&pn=Tasty Confectionary&am={item3total}&tn=Tasty Confectionary&cu=INR"
                                                         img = qrcode.make(link)
                                                         img.save("qrcode.png")
                                                         break
@@ -655,7 +655,7 @@ while True:
                                                                     break
                                                                 elif paymode3 == "2":
                                                                     file2 = "Templetes//4QR.docx"
-                                                                    link = f"upi://pay?pa=rajlakshmi.mohanty@ybl&pn=abcd&am={item4total}&tn=Tasty Confectionary&cu=INR"
+                                                                    link = f"upi://pay?pa=nanigopalkaran77777@oksbi&pn=Tasty Confectionary&am={item4total}&tn=Tasty Confectionary&cu=INR"
                                                                     img = qrcode.make(link)
                                                                     img.save("qrcode.png")
                                                                     break
@@ -825,7 +825,7 @@ while True:
                                                                                 break
                                                                             elif paymode3 == "2":
                                                                                 file2 = "Templetes//5QR.docx"
-                                                                                link = f"upi://pay?pa=rajlakshmi.mohanty@ybl&pn=abcd&am={item5total}&tn=Tasty Confectionary&cu=INR"
+                                                                                link = f"upi://pay?pa=nanigopalkaran77777@oksbi&pn=Tasty Confectionary&am={item5total}&tn=Tasty Confectionary&cu=INR"
                                                                                 img = qrcode.make(link)
                                                                                 img.save("qrcode.png")
                                                                                 break
@@ -999,7 +999,7 @@ while True:
                                                                                             break
                                                                                         elif paymode3 == "2":
                                                                                             file2 = "Templetes//6QR.docx"
-                                                                                            link = f"upi://pay?pa=rajlakshmi.mohanty@ybl&pn=abcd&am={item6total}&tn=Tasty Confectionary&cu=INR"
+                                                                                            link = f"upi://pay?pa=nanigopalkaran77777@oksbi&pn=Tasty Confectionary&am={item6total}&tn=Tasty Confectionary&cu=INR"
                                                                                             img = qrcode.make(link)
                                                                                             img.save("qrcode.png")
                                                                                             break
@@ -1177,7 +1177,7 @@ while True:
                                                                                                         break
                                                                                                     elif paymode3 == "2":
                                                                                                         file2 = "Templetes//7QR.docx"
-                                                                                                        link = f"upi://pay?pa=rajlakshmi.mohanty@ybl&pn=abcd&am={item7total}&tn=Tasty Confectionary&cu=INR"
+                                                                                                        link = f"upi://pay?pa=nanigopalkaran77777@oksbi&pn=Tasty Confectionary&am={item7total}&tn=Tasty Confectionary&cu=INR"
                                                                                                         img = qrcode.make(link)
                                                                                                         img.save("qrcode.png")
                                                                                                         break
@@ -1360,7 +1360,7 @@ while True:
                                                                                                                     break
                                                                                                                 elif paymode3 == "2":
                                                                                                                     file2 = "Templetes//8QR.docx"
-                                                                                                                    link = f"upi://pay?pa=rajlakshmi.mohanty@ybl&pn=abcd&am={item8total}&tn=Tasty Confectionary&cu=INR"
+                                                                                                                    link = f"upi://pay?pa=nanigopalkaran77777@oksbi&pn=Tasty Confectionary&am={item8total}&tn=Tasty Confectionary&cu=INR"
                                                                                                                     img = qrcode.make(link)
                                                                                                                     img.save("qrcode.png")
                                                                                                                     break
@@ -1513,7 +1513,7 @@ while True:
                         else:
                             if os.path.exists(f"Invoices\\{bill}.docx"):
                                 file = f"Invoices\\{bill}.docx"
-                                os.startfile(file,'print')
+                                os.startfile(file)
                                 break
                             else:
                                 print("No Invoice in your Invoices with this Invoice No.")
