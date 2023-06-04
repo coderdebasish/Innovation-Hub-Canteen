@@ -11,6 +11,8 @@ import qrcode
 from docx import Document
 from docx.shared import Inches
 from docx.enum.text import WD_ALIGN_PARAGRAPH
+import maskpass  # to hide the password
+ 
 
 directory_path = 'Invoices'
 
@@ -1595,9 +1597,11 @@ while True:
         print("           Admin Panel           ")
         print("---------------------------------")
         while True:
-            admin_code = "5"
-            a = input("Enter Admin Pass Code: ")
-            if a == admin_code:
+            admin_code = "NaniGopal"
+            # masking the password
+            pwd = maskpass.askpass(mask="x") 
+            if pwd == admin_code:
+                clear_screen()
                 print("Login Success")
                 break
             else:
