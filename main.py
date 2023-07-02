@@ -90,8 +90,8 @@ while True:
                         break
                     else:
                         print("Invalid Input! Try Again")
-                    if escape_num == 1:
-                        break
+                if escape_num == 1:
+                    break
             if escape_num == 1:
                 escape_num = 0
                 break
@@ -241,8 +241,8 @@ while True:
                                     break
                                 else:
                                     print("Invalid Input! Try Again")
-                                if escape_num == 1:
-                                    break
+                            if escape_num == 1:
+                                break
                         if escape_num == 1:
                             escape_num = 0
                             break
