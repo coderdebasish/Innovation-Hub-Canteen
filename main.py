@@ -27,7 +27,14 @@ def rep_word(doc_name, old_word, new_word):
                     text = inline[i].text.replace(old_word, new_word)
                     inline[i].text = text
     new_doc_name = f"{invno}.docx"
-    doc.save(f"Invoices//{new_doc_name}")
+    doc.save(f"Invoices//{current_date}//{new_doc_name}")
+def find_files(filename, search_path):
+   result = ""
+   for root, dir, files in os.walk(search_path):
+      if filename in files:
+         result=(os.path.join(root, filename))
+   return result
+
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 clear_screen()
@@ -169,40 +176,49 @@ while True:
                         paymode = input("Payment Mode:\n1. Cash Payment\n2. Upi Payment\n Enter your Choice : ")
                         if paymode == "1" or paymode == "2":
                             if paymode == "1":
-                                file = "Templetes//1.docx"
+                                filetemp = "Templetes//1.docx"
                                 break
                             elif paymode == "2":
-                                file = "Templetes//1QR.docx"
+                                filetemp = "Templetes//1QR.docx"
                                 link = f"upi://pay?pa=nanigopalkaran77777@oksbi&pn=Tasty Confectionary&am={item1amount}&tn=Tasty Confectionary&cu=INR"
                                 img = qrcode.make(link)
                                 img.save("qrcode.png")
                                 break
                         else:
                             print("Invalid Input! Please Try Again.")
-                    files = os.listdir(directory_path)
-                    num_files = len(files)
-                    invno = num_files + 1
+                    # files = os.listdir(directory_path)
+                    fileCounter = 0
+                    for root, dirs, files in os.walk("Invoices//"):
+                        for file in files:    
+                            if file.endswith('.docx'):
+                                fileCounter += 1
+                    invno = fileCounter + 1
                     print("Invoice Number is = ", invno)
                     now = datetime.datetime.now()
                     current_datetime = now.strftime("%d-%m-%Y        Time - %H:%M:%S")
-                    rep_word(f"{file}", "111", f"INV {invno}")
-                    rep_word(f"Invoices//{invno}.docx", "112", f"{current_datetime}")
-                    rep_word(f"Invoices//{invno}.docx", "114", f"{itemname1}")
-                    rep_word(f"Invoices//{invno}.docx", "115", f"{item1qty}")
-                    rep_word(f"Invoices//{invno}.docx", "116", f"{item1amount}")
-                    rep_word(f"Invoices//{invno}.docx", "117", f"{item1qty}")
-                    rep_word(f"Invoices//{invno}.docx", "118", f"{item1amount}")
+                    current_date = now.strftime("%d-%m-%Y")
+                    isExist = os.path.exists(f"Invoices//{current_date}")
+                    if not isExist:
+                        os.makedirs(f"Invoices//{current_date}")
+
+                    rep_word(f"{filetemp}", "111", f"INV {invno}")
+                    rep_word(f"Invoices//{current_date}//{invno}.docx", "112", f"{current_datetime}")
+                    rep_word(f"Invoices//{current_date}//{invno}.docx", "114", f"{itemname1}")
+                    rep_word(f"Invoices//{current_date}//{invno}.docx", "115", f"{item1qty}")
+                    rep_word(f"Invoices//{current_date}//{invno}.docx", "116", f"{item1amount}")
+                    rep_word(f"Invoices//{current_date}//{invno}.docx", "117", f"{item1qty}")
+                    rep_word(f"Invoices//{current_date}//{invno}.docx", "118", f"{item1amount}")
                     if paymode == "2":
-                        document = Document(f"Invoices//{invno}.docx")
+                        document = Document(f"Invoices//{current_date}//{invno}.docx")
                         paragraph = document.add_paragraph()
                         paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
                         run = paragraph.add_run()
                         run.add_picture('qrcode.png', width=Inches(0.85), height=Inches(0.85))
-                        document.save(f"Invoices//{invno}.docx")
+                        document.save(f"Invoices//{current_date}//{invno}.docx")
                     while True:
-                        if os.path.exists(f"Invoices//{invno}.docx"):
+                        if os.path.exists(f"Invoices//{current_date}//{invno}.docx"):
                             break
-                    file = f"Invoices\\{invno}.docx"
+                    file = f"Invoices\\{current_date}\\{invno}.docx"
                     os.startfile(file,'print')
                     esc = 1
                     break
@@ -335,35 +351,42 @@ while True:
                                             break
                                     else:
                                         print("Invalid Input! Please Try Again.")
-                                files = os.listdir(directory_path)
-                                num_files = len(files)
-                                invno = num_files + 1
+                                fileCounter = 0
+                                for root, dirs, files in os.walk("Invoices//"):
+                                    for file in files:    
+                                        if file.endswith('.docx'):
+                                            fileCounter += 1
+                                invno = fileCounter + 1
                                 print("Invoice Number is = ", invno)
                                 now = datetime.datetime.now()
                                 current_datetime = now.strftime("%d-%m-%Y        Time - %H:%M:%S")
+                                current_date = now.strftime("%d-%m-%Y")
+                                isExist = os.path.exists(f"Invoices//{current_date}")
+                                if not isExist:
+                                    os.makedirs(f"Invoices//{current_date}")
                                 rep_word(f"{file2}", "111", f"INV {invno}")
-                                rep_word(f"Invoices//{invno}.docx", "112", f"{current_datetime}")
-                                rep_word(f"Invoices//{invno}.docx", "114", f"{itemname1}")
-                                rep_word(f"Invoices//{invno}.docx", "115", f"{item1qty}")
-                                rep_word(f"Invoices//{invno}.docx", "116", f"{item1amount}")
-                                rep_word(f"Invoices//{invno}.docx", "117", f"{itemname2}")
-                                rep_word(f"Invoices//{invno}.docx", "118", f"{item2qty}")
-                                rep_word(f"Invoices//{invno}.docx", "119", f"{item2amount}")
-                                rep_word(f"Invoices//{invno}.docx", "55", f"{item2qtytotal}")
-                                rep_word(f"Invoices//{invno}.docx", "99", f"{item2total}")
+                                rep_word(f"Invoices//{current_date}//{invno}.docx", "112", f"{current_datetime}")
+                                rep_word(f"Invoices//{current_date}//{invno}.docx", "114", f"{itemname1}")
+                                rep_word(f"Invoices//{current_date}//{invno}.docx", "115", f"{item1qty}")
+                                rep_word(f"Invoices//{current_date}//{invno}.docx", "116", f"{item1amount}")
+                                rep_word(f"Invoices//{current_date}//{invno}.docx", "117", f"{itemname2}")
+                                rep_word(f"Invoices//{current_date}//{invno}.docx", "118", f"{item2qty}")
+                                rep_word(f"Invoices//{current_date}//{invno}.docx", "119", f"{item2amount}")
+                                rep_word(f"Invoices//{current_date}//{invno}.docx", "55", f"{item2qtytotal}")
+                                rep_word(f"Invoices//{current_date}//{invno}.docx", "99", f"{item2total}")
                                 # print(item2total, "=" , item2qtytotal)
                                 if paymode2 == "2":
-                                    document = Document(f"Invoices//{invno}.docx")
+                                    document = Document(f"Invoices//{current_date}//{invno}.docx")
                                     paragraph = document.add_paragraph()
                                     paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
                                     run = paragraph.add_run()
                                     run.add_picture('qrcode.png', width=Inches(0.8), height=Inches(0.8))
 
-                                    document.save(f"Invoices//{invno}.docx")
+                                    document.save(f"Invoices//{current_date}//{invno}.docx")
                                 while True:
-                                    if os.path.exists(f"Invoices//{invno}.docx"):
+                                    if os.path.exists(f"Invoices//{current_date}//{invno}.docx"):
                                         break
-                                file = f"Invoices\\{invno}.docx"
+                                file = f"Invoices\\{current_date}\\{invno}.docx"
                                 os.startfile(file,'print')
                                 esc = 1
                                 break
@@ -497,38 +520,45 @@ while True:
                                                         break
                                                 else:
                                                     print("Invalid Input! Please Try Again.")
-                                            files = os.listdir(directory_path)
-                                            num_files = len(files)
-                                            invno = num_files + 1
+                                            fileCounter = 0
+                                            for root, dirs, files in os.walk("Invoices//"):
+                                                for file in files:    
+                                                    if file.endswith('.docx'):
+                                                        fileCounter += 1
+                                            invno = fileCounter + 1
                                             print("Invoice Number is = ", invno)
                                             now = datetime.datetime.now()
                                             current_datetime = now.strftime("%d-%m-%Y        Time - %H:%M:%S")
+                                            current_date = now.strftime("%d-%m-%Y")
+                                            isExist = os.path.exists(f"Invoices//{current_date}")
+                                            if not isExist:
+                                                os.makedirs(f"Invoices//{current_date}")
                                             rep_word(f"{file2}", "111", f"INV {invno}")
-                                            rep_word(f"Invoices//{invno}.docx", "112", f"{current_datetime}")
-                                            rep_word(f"Invoices//{invno}.docx", "114", f"{itemname1}")
-                                            rep_word(f"Invoices//{invno}.docx", "115", f"{item1qty}")
-                                            rep_word(f"Invoices//{invno}.docx", "116", f"{item1amount}")
-                                            rep_word(f"Invoices//{invno}.docx", "117", f"{itemname2}")
-                                            rep_word(f"Invoices//{invno}.docx", "118", f"{item2qty}")
-                                            rep_word(f"Invoices//{invno}.docx", "119", f"{item2amount}")
-                                            rep_word(f"Invoices//{invno}.docx", "120", f"{itemname3}")
-                                            rep_word(f"Invoices//{invno}.docx", "121", f"{item3qty}")
-                                            rep_word(f"Invoices//{invno}.docx", "122", f"{item3amount}")
-                                            rep_word(f"Invoices//{invno}.docx", "55", f"{item3qtytotal}")
-                                            rep_word(f"Invoices//{invno}.docx", "99", f"{item3total}")
+                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "112", f"{current_datetime}")
+                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "114", f"{itemname1}")
+                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "115", f"{item1qty}")
+                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "116", f"{item1amount}")
+                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "117", f"{itemname2}")
+                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "118", f"{item2qty}")
+                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "119", f"{item2amount}")
+                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "120", f"{itemname3}")
+                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "121", f"{item3qty}")
+                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "122", f"{item3amount}")
+                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "55", f"{item3qtytotal}")
+                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "99", f"{item3total}")
                                             # print(item2total, "=" , item2qtytotal)
                                             if paymode2 == "2":
-                                                document = Document(f"Invoices//{invno}.docx")
+                                                document = Document(f"Invoices//{current_date}//{invno}.docx")
                                                 paragraph = document.add_paragraph()
                                                 paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
                                                 run = paragraph.add_run()
                                                 run.add_picture('qrcode.png', width=Inches(0.8), height=Inches(0.8))
 
-                                                document.save(f"Invoices//{invno}.docx")
+                                                document.save(f"Invoices//{current_date}//{invno}.docx")
                                             while True:
-                                                if os.path.exists(f"Invoices//{invno}.docx"):
+                                                if os.path.exists(f"Invoices//{current_date}//{invno}.docx"):
                                                     break
-                                            file = f"Invoices\\{invno}.docx"
+                                            file = f"Invoices\\{current_date}\\{invno}.docx"
                                             os.startfile(file,'print')
                                             esc = 1
                                             break
@@ -663,41 +693,48 @@ while True:
                                                                     break
                                                             else:
                                                                 print("Invalid Input! Please Try Again.")
-                                                        files = os.listdir(directory_path)
-                                                        num_files = len(files)
-                                                        invno = num_files + 1
+                                                        fileCounter = 0
+                                                        for root, dirs, files in os.walk("Invoices//"):
+                                                            for file in files:    
+                                                                if file.endswith('.docx'):
+                                                                    fileCounter += 1
+                                                        invno = fileCounter + 1
                                                         print("Invoice Number is = ", invno)
                                                         now = datetime.datetime.now()
                                                         current_datetime = now.strftime("%d-%m-%Y        Time - %H:%M:%S")
+                                                        current_date = now.strftime("%d-%m-%Y")
+                                                        isExist = os.path.exists(f"Invoices//{current_date}")
+                                                        if not isExist:
+                                                            os.makedirs(f"Invoices//{current_date}")
                                                         rep_word(f"{file2}", "111", f"INV {invno}")
-                                                        rep_word(f"Invoices//{invno}.docx", "112", f"{current_datetime}")
-                                                        rep_word(f"Invoices//{invno}.docx", "114", f"{itemname1}")
-                                                        rep_word(f"Invoices//{invno}.docx", "115", f"{item1qty}")
-                                                        rep_word(f"Invoices//{invno}.docx", "116", f"{item1amount}")
-                                                        rep_word(f"Invoices//{invno}.docx", "117", f"{itemname2}")
-                                                        rep_word(f"Invoices//{invno}.docx", "118", f"{item2qty}")
-                                                        rep_word(f"Invoices//{invno}.docx", "66", f"{item2amount}")
-                                                        rep_word(f"Invoices//{invno}.docx", "120", f"{itemname3}")
-                                                        rep_word(f"Invoices//{invno}.docx", "121", f"{item3qty}")
-                                                        rep_word(f"Invoices//{invno}.docx", "122", f"{item3amount}")
-                                                        rep_word(f"Invoices//{invno}.docx", "123", f"{itemname4}")
-                                                        rep_word(f"Invoices//{invno}.docx", "124", f"{item4qty}")
-                                                        rep_word(f"Invoices//{invno}.docx", "125", f"{item4amount}")
-                                                        rep_word(f"Invoices//{invno}.docx", "55", f"{item4qtytotal}")
-                                                        rep_word(f"Invoices//{invno}.docx", "99", f"{item4total}")
+                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "112", f"{current_datetime}")
+                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "114", f"{itemname1}")
+                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "115", f"{item1qty}")
+                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "116", f"{item1amount}")
+                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "117", f"{itemname2}")
+                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "118", f"{item2qty}")
+                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "66", f"{item2amount}")
+                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "120", f"{itemname3}")
+                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "121", f"{item3qty}")
+                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "122", f"{item3amount}")
+                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "123", f"{itemname4}")
+                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "124", f"{item4qty}")
+                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "125", f"{item4amount}")
+                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "55", f"{item4qtytotal}")
+                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "99", f"{item4total}")
                                                         # print(item2total, "=" , item2qtytotal)
                                                         if paymode3 == "2":
-                                                            document = Document(f"Invoices//{invno}.docx")
+                                                            document = Document(f"Invoices//{current_date}//{invno}.docx")
                                                             paragraph = document.add_paragraph()
                                                             paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
                                                             run = paragraph.add_run()
                                                             run.add_picture('qrcode.png', width=Inches(0.8), height=Inches(0.8))
 
-                                                            document.save(f"Invoices//{invno}.docx")
+                                                            document.save(f"Invoices//{current_date}//{invno}.docx")
                                                         while True:
-                                                            if os.path.exists(f"Invoices//{invno}.docx"):
+                                                            if os.path.exists(f"Invoices//{current_date}//{invno}.docx"):
                                                                 break
-                                                        file = f"Invoices\\{invno}.docx"
+                                                        file = f"Invoices\\{current_date}\\{invno}.docx"
                                                         os.startfile(file,'print')
                                                         esc = 1
                                                         break
@@ -833,44 +870,51 @@ while True:
                                                                                 break
                                                                         else:
                                                                             print("Invalid Input! Please Try Again.")
-                                                                    files = os.listdir(directory_path)
-                                                                    num_files = len(files)
-                                                                    invno = num_files + 1
+                                                                    fileCounter = 0
+                                                                    for root, dirs, files in os.walk("Invoices//"):
+                                                                        for file in files:    
+                                                                            if file.endswith('.docx'):
+                                                                                fileCounter += 1
+                                                                    invno = fileCounter + 1
                                                                     print("Invoice Number is = ", invno)
                                                                     now = datetime.datetime.now()
                                                                     current_datetime = now.strftime("%d-%m-%Y        Time - %H:%M:%S")
+                                                                    current_date = now.strftime("%d-%m-%Y")
+                                                                    isExist = os.path.exists(f"Invoices//{current_date}")
+                                                                    if not isExist:
+                                                                        os.makedirs(f"Invoices//{current_date}")
                                                                     rep_word(f"{file2}", "111", f"INV {invno}")
-                                                                    rep_word(f"Invoices//{invno}.docx", "112", f"{current_datetime}")
-                                                                    rep_word(f"Invoices//{invno}.docx", "114", f"{itemname1}")
-                                                                    rep_word(f"Invoices//{invno}.docx", "115", f"{item1qty}")
-                                                                    rep_word(f"Invoices//{invno}.docx", "116", f"{item1amount}")
-                                                                    rep_word(f"Invoices//{invno}.docx", "117", f"{itemname2}")
-                                                                    rep_word(f"Invoices//{invno}.docx", "118", f"{item2qty}")
-                                                                    rep_word(f"Invoices//{invno}.docx", "119", f"{item2amount}")
-                                                                    rep_word(f"Invoices//{invno}.docx", "120", f"{itemname3}")
-                                                                    rep_word(f"Invoices//{invno}.docx", "121", f"{item3qty}")
-                                                                    rep_word(f"Invoices//{invno}.docx", "122", f"{item3amount}")
-                                                                    rep_word(f"Invoices//{invno}.docx", "123", f"{itemname4}")
-                                                                    rep_word(f"Invoices//{invno}.docx", "124", f"{item4qty}")
-                                                                    rep_word(f"Invoices//{invno}.docx", "125", f"{item4amount}")
-                                                                    rep_word(f"Invoices//{invno}.docx", "126", f"{itemname5}")
-                                                                    rep_word(f"Invoices//{invno}.docx", "127", f"{item5qty}")
-                                                                    rep_word(f"Invoices//{invno}.docx", "128", f"{item5amount}")
-                                                                    rep_word(f"Invoices//{invno}.docx", "55", f"{item5qtytotal}")
-                                                                    rep_word(f"Invoices//{invno}.docx", "99", f"{item5total}")
+                                                                    rep_word(f"Invoices//{current_date}//{invno}.docx", "112", f"{current_datetime}")
+                                                                    rep_word(f"Invoices//{current_date}//{invno}.docx", "114", f"{itemname1}")
+                                                                    rep_word(f"Invoices//{current_date}//{invno}.docx", "115", f"{item1qty}")
+                                                                    rep_word(f"Invoices//{current_date}//{invno}.docx", "116", f"{item1amount}")
+                                                                    rep_word(f"Invoices//{current_date}//{invno}.docx", "117", f"{itemname2}")
+                                                                    rep_word(f"Invoices//{current_date}//{invno}.docx", "118", f"{item2qty}")
+                                                                    rep_word(f"Invoices//{current_date}//{invno}.docx", "119", f"{item2amount}")
+                                                                    rep_word(f"Invoices//{current_date}//{invno}.docx", "120", f"{itemname3}")
+                                                                    rep_word(f"Invoices//{current_date}//{invno}.docx", "121", f"{item3qty}")
+                                                                    rep_word(f"Invoices//{current_date}//{invno}.docx", "122", f"{item3amount}")
+                                                                    rep_word(f"Invoices//{current_date}//{invno}.docx", "123", f"{itemname4}")
+                                                                    rep_word(f"Invoices//{current_date}//{invno}.docx", "124", f"{item4qty}")
+                                                                    rep_word(f"Invoices//{current_date}//{invno}.docx", "125", f"{item4amount}")
+                                                                    rep_word(f"Invoices//{current_date}//{invno}.docx", "126", f"{itemname5}")
+                                                                    rep_word(f"Invoices//{current_date}//{invno}.docx", "127", f"{item5qty}")
+                                                                    rep_word(f"Invoices//{current_date}//{invno}.docx", "128", f"{item5amount}")
+                                                                    rep_word(f"Invoices//{current_date}//{invno}.docx", "55", f"{item5qtytotal}")
+                                                                    rep_word(f"Invoices//{current_date}//{invno}.docx", "99", f"{item5total}")
                                                                     # print(item2total, "=" , item2qtytotal)
                                                                     if paymode3 == "2":
-                                                                        document = Document(f"Invoices//{invno}.docx")
+                                                                        document = Document(f"Invoices//{current_date}//{invno}.docx")
                                                                         paragraph = document.add_paragraph()
                                                                         paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
                                                                         run = paragraph.add_run()
                                                                         run.add_picture('qrcode.png', width=Inches(0.8), height=Inches(0.8))
 
-                                                                        document.save(f"Invoices//{invno}.docx")
+                                                                        document.save(f"Invoices//{current_date}//{invno}.docx")
                                                                     while True:
-                                                                        if os.path.exists(f"Invoices//{invno}.docx"):
+                                                                        if os.path.exists(f"Invoices//{current_date}//{invno}.docx"):
                                                                             break
-                                                                    file = f"Invoices\\{invno}.docx"
+                                                                    file = f"Invoices\\{current_date}\\{invno}.docx"
                                                                     os.startfile(file,'print')
                                                                     esc = 1
                                                                     break
@@ -1007,47 +1051,54 @@ while True:
                                                                                             break
                                                                                     else:
                                                                                         print("Invalid Input! Please Try Again.")
-                                                                                files = os.listdir(directory_path)
-                                                                                num_files = len(files)
-                                                                                invno = num_files + 1
+                                                                                fileCounter = 0
+                                                                                for root, dirs, files in os.walk("Invoices//"):
+                                                                                    for file in files:    
+                                                                                        if file.endswith('.docx'):
+                                                                                            fileCounter += 1
+                                                                                invno = fileCounter + 1
                                                                                 print("Invoice Number is = ", invno)
                                                                                 now = datetime.datetime.now()
                                                                                 current_datetime = now.strftime("%d-%m-%Y        Time - %H:%M:%S")
+                                                                                current_date = now.strftime("%d-%m-%Y")
+                                                                                isExist = os.path.exists(f"Invoices//{current_date}")
+                                                                                if not isExist:
+                                                                                    os.makedirs(f"Invoices//{current_date}")
                                                                                 rep_word(f"{file2}", "111", f"INV {invno}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "112", f"{current_datetime}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "114", f"{itemname1}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "115", f"{item1qty}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "116", f"{item1amount}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "117", f"{itemname2}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "118", f"{item2qty}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "119", f"{item2amount}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "120", f"{itemname3}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "121", f"{item3qty}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "122", f"{item3amount}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "123", f"{itemname4}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "124", f"{item4qty}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "125", f"{item4amount}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "126", f"{itemname5}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "127", f"{item5qty}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "128", f"{item5amount}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "129", f"{itemname6}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "130", f"{item6qty}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "131", f"{item6amount}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "55", f"{item6qtytotal}")
-                                                                                rep_word(f"Invoices//{invno}.docx", "99", f"{item6total}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "112", f"{current_datetime}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "114", f"{itemname1}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "115", f"{item1qty}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "116", f"{item1amount}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "117", f"{itemname2}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "118", f"{item2qty}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "119", f"{item2amount}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "120", f"{itemname3}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "121", f"{item3qty}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "122", f"{item3amount}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "123", f"{itemname4}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "124", f"{item4qty}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "125", f"{item4amount}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "126", f"{itemname5}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "127", f"{item5qty}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "128", f"{item5amount}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "129", f"{itemname6}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "130", f"{item6qty}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "131", f"{item6amount}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "55", f"{item6qtytotal}")
+                                                                                rep_word(f"Invoices//{current_date}//{invno}.docx", "99", f"{item6total}")
                                                                                 # print(item2total, "=" , item2qtytotal)
                                                                                 if paymode3 == "2":
-                                                                                    document = Document(f"Invoices//{invno}.docx")
+                                                                                    document = Document(f"Invoices//{current_date}//{invno}.docx")
                                                                                     paragraph = document.add_paragraph()
                                                                                     paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
                                                                                     run = paragraph.add_run()
                                                                                     run.add_picture('qrcode.png', width=Inches(0.8), height=Inches(0.8))
 
-                                                                                    document.save(f"Invoices//{invno}.docx")
+                                                                                    document.save(f"Invoices//{current_date}//{invno}.docx")
                                                                                 while True:
-                                                                                    if os.path.exists(f"Invoices//{invno}.docx"):
+                                                                                    if os.path.exists(f"Invoices//{current_date}//{invno}.docx"):
                                                                                         break
-                                                                                file = f"Invoices\\{invno}.docx"
+                                                                                file = f"Invoices\\{current_date}\\{invno}.docx"
                                                                                 os.startfile(file,'print')
                                                                                 esc = 1
                                                                                 break
@@ -1185,50 +1236,57 @@ while True:
                                                                                                         break
                                                                                                 else:
                                                                                                     print("Invalid Input! Please Try Again.")
-                                                                                            files = os.listdir(directory_path)
-                                                                                            num_files = len(files)
-                                                                                            invno = num_files + 1
+                                                                                            fileCounter = 0
+                                                                                            for root, dirs, files in os.walk("Invoices//"):
+                                                                                                for file in files:    
+                                                                                                    if file.endswith('.docx'):
+                                                                                                        fileCounter += 1
+                                                                                            invno = fileCounter + 1
                                                                                             print("Invoice Number is = ", invno)
                                                                                             now = datetime.datetime.now()
                                                                                             current_datetime = now.strftime("%d-%m-%Y        Time - %H:%M:%S")
+                                                                                            current_date = now.strftime("%d-%m-%Y")
+                                                                                            isExist = os.path.exists(f"Invoices//{current_date}")
+                                                                                            if not isExist:
+                                                                                                os.makedirs(f"Invoices//{current_date}")
                                                                                             rep_word(f"{file2}", "111", f"INV {invno}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "112", f"{current_datetime}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "114", f"{itemname1}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "115", f"{item1qty}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "116", f"{item1amount}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "117", f"{itemname2}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "118", f"{item2qty}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "119", f"{item2amount}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "120", f"{itemname3}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "121", f"{item3qty}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "122", f"{item3amount}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "123", f"{itemname4}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "124", f"{item4qty}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "125", f"{item4amount}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "126", f"{itemname5}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "127", f"{item5qty}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "128", f"{item5amount}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "129", f"{itemname6}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "130", f"{item6qty}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "131", f"{item6amount}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "132", f"{itemname7}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "133", f"{item7qty}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "134", f"{item7amount}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "55", f"{item7qtytotal}")
-                                                                                            rep_word(f"Invoices//{invno}.docx", "99", f"{item7total}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "112", f"{current_datetime}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "114", f"{itemname1}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "115", f"{item1qty}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "116", f"{item1amount}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "117", f"{itemname2}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "118", f"{item2qty}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "119", f"{item2amount}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "120", f"{itemname3}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "121", f"{item3qty}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "122", f"{item3amount}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "123", f"{itemname4}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "124", f"{item4qty}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "125", f"{item4amount}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "126", f"{itemname5}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "127", f"{item5qty}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "128", f"{item5amount}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "129", f"{itemname6}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "130", f"{item6qty}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "131", f"{item6amount}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "132", f"{itemname7}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "133", f"{item7qty}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "134", f"{item7amount}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "55", f"{item7qtytotal}")
+                                                                                            rep_word(f"Invoices//{current_date}//{invno}.docx", "99", f"{item7total}")
                                                                                             # print(item2total, "=" , item2qtytotal)
                                                                                             if paymode3 == "2":
-                                                                                                document = Document(f"Invoices//{invno}.docx")
+                                                                                                document = Document(f"Invoices//{current_date}//{invno}.docx")
                                                                                                 paragraph = document.add_paragraph()
                                                                                                 paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
                                                                                                 run = paragraph.add_run()
                                                                                                 run.add_picture('qrcode.png', width=Inches(0.8), height=Inches(0.8))
 
-                                                                                                document.save(f"Invoices//{invno}.docx")
+                                                                                                document.save(f"Invoices//{current_date}//{invno}.docx")
                                                                                             while True:
-                                                                                                if os.path.exists(f"Invoices//{invno}.docx"):
+                                                                                                if os.path.exists(f"Invoices//{current_date}//{invno}.docx"):
                                                                                                     break
-                                                                                            file = f"Invoices\\{invno}.docx"
+                                                                                            file = f"Invoices\\{current_date}\\{invno}.docx"
                                                                                             os.startfile(file,'print')
                                                                                             esc = 1
                                                                                             break
@@ -1368,53 +1426,60 @@ while True:
                                                                                                                     break
                                                                                                             else:
                                                                                                                 print("Invalid Input! Please Try Again.")
-                                                                                                        files = os.listdir(directory_path)
-                                                                                                        num_files = len(files)
-                                                                                                        invno = num_files + 1
+                                                                                                        fileCounter = 0
+                                                                                                        for root, dirs, files in os.walk("Invoices//"):
+                                                                                                            for file in files:    
+                                                                                                                if file.endswith('.docx'):
+                                                                                                                    fileCounter += 1
+                                                                                                        invno = fileCounter + 1
                                                                                                         print("Invoice Number is = ", invno)
                                                                                                         now = datetime.datetime.now()
                                                                                                         current_datetime = now.strftime("%d-%m-%Y        Time - %H:%M:%S")
+                                                                                                        current_date = now.strftime("%d-%m-%Y")
+                                                                                                        isExist = os.path.exists(f"Invoices//{current_date}")
+                                                                                                        if not isExist:
+                                                                                                            os.makedirs(f"Invoices//{current_date}")
                                                                                                         rep_word(f"{file2}", "111", f"INV {invno}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "112", f"{current_datetime}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "114", f"{itemname1}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "115", f"{item1qty}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "199", f"{item1amount}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "117", f"{itemname2}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "118", f"{item2qty}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "290", f"{item2amount}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "120", f"{itemname3}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "121", f"{item3qty}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "122", f"{item3amount}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "123", f"{itemname4}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "124", f"{item4qty}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "125", f"{item4amount}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "126", f"{itemname5}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "127", f"{item5qty}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "128", f"{item5amount}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "193", f"{itemname6}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "130", f"{item6qty}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "131", f"{item6amount}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "132", f"{itemname7}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "133", f"{item7qty}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "134", f"{item7amount}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "135", f"{itemname8}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "136", f"{item8qty}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "137", f"{item8amount}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "55", f"{item8qtytotal}")
-                                                                                                        rep_word(f"Invoices//{invno}.docx", "99", f"{item8total}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "112", f"{current_datetime}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "114", f"{itemname1}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "115", f"{item1qty}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "199", f"{item1amount}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "117", f"{itemname2}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "118", f"{item2qty}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "290", f"{item2amount}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "120", f"{itemname3}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "121", f"{item3qty}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "122", f"{item3amount}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "123", f"{itemname4}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "124", f"{item4qty}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "125", f"{item4amount}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "126", f"{itemname5}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "127", f"{item5qty}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "128", f"{item5amount}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "193", f"{itemname6}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "130", f"{item6qty}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "131", f"{item6amount}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "132", f"{itemname7}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "133", f"{item7qty}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "134", f"{item7amount}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "135", f"{itemname8}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "136", f"{item8qty}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "137", f"{item8amount}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "55", f"{item8qtytotal}")
+                                                                                                        rep_word(f"Invoices//{current_date}//{invno}.docx", "99", f"{item8total}")
                                                                                                         # print(item2total, "=" , item2qtytotal)
                                                                                                         if paymode3 == "2":
-                                                                                                            document = Document(f"Invoices//{invno}.docx")
+                                                                                                            document = Document(f"Invoices//{current_date}//{invno}.docx")
                                                                                                             paragraph = document.add_paragraph()
                                                                                                             paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
                                                                                                             run = paragraph.add_run()
                                                                                                             run.add_picture('qrcode.png', width=Inches(0.8), height=Inches(0.8))
 
-                                                                                                            document.save(f"Invoices//{invno}.docx")
+                                                                                                            document.save(f"Invoices//{current_date}//{invno}.docx")
                                                                                                         while True:
-                                                                                                            if os.path.exists(f"Invoices//{invno}.docx"):
+                                                                                                            if os.path.exists(f"Invoices//{current_date}//{invno}.docx"):
                                                                                                                 break
-                                                                                                        file = f"Invoices\\{invno}.docx"
+                                                                                                        file = f"Invoices\\{current_date}\\{invno}.docx"
                                                                                                         os.startfile(file,'print')
                                                                                                         esc = 1
                                                                                                         break
@@ -1467,10 +1532,13 @@ while True:
                     
             # Reprint last Invoice
     elif choice == "2":
-        files = os.listdir(directory_path)
-        num_files = len(files)
-        invno = num_files
-        file = f"{directory_path}\\{invno}.docx"
+        fileCounter = 0
+        for root, dirs, files in os.walk("Invoices//"):
+            for file in files:    
+                if file.endswith('.docx'):
+                    fileCounter += 1
+        invno = fileCounter
+        file = find_files(f"{invno}.docx","Invoices\\")
         os.startfile(file, "print")
             # Reprint Invoice
     elif choice == "3":
@@ -1486,8 +1554,8 @@ while True:
                             qwe = 1
                             break
                         else:
-                            if os.path.exists(f"Invoices\\{bill}.docx"):
-                                file = f"Invoices\\{bill}.docx"
+                            file = find_files(f"{bill}.docx","Invoices\\")
+                            if file != "":
                                 os.startfile(file,'print')
                                 break
                             else:
@@ -1513,8 +1581,8 @@ while True:
                             qwe = 1
                             break
                         else:
-                            if os.path.exists(f"Invoices\\{bill}.docx"):
-                                file = f"Invoices\\{bill}.docx"
+                            file = find_files(f"{bill}.docx","Invoices\\")
+                            if file != "":
                                 os.startfile(file)
                                 break
                             else:
