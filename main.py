@@ -2010,6 +2010,7 @@ while True:
                             break
                         else:
                             print("No items in your Inventory with this product code.")
+                            break
                     while True:
                         y = input("Are You Sure to Delete This Item? (1.Yes/0.No) : ")
                         if y == "1" or y== "0":
