@@ -155,6 +155,17 @@ while True:
                 print("Item Added")
                 items = 1
                 item1amount = item1qty * itemprice1
+                print("----------------------------------------------")
+                print("                   Invoice                    ")
+                print("----------------------------------------------")
+                print("Code    Item Name   Price/Unit  Qty     Total")
+                print("----------------------------------------------")
+                length1 = len(itemname1)
+                itemname1 = itemname1 + (17-length1)*" "
+                print(f"{item_code1} : {itemname1}: {itemprice1} x\t{item1qty} \t{item1amount}")
+                print("----------------------------------------------")
+                print(f"                          Grand Total = {item1amount}")
+                
                 print(f"Current Bill Amount is = {item1amount}")
                 while True:
                     in1 = input("1. Add another item\n2. Generate Incoice\nEnter Your Choice : ")
@@ -239,7 +250,7 @@ while True:
                             if os.path.exists(f"Items\\{item_code2}.txt"):
                                 break
                             else:
-                                print("No items in your Inventory with this product code.")
+                                print("No itbnems in your Inventory with this product code.")
                                 while True:
                                     repet = 0
                                     escape_num = 0
@@ -320,6 +331,19 @@ while True:
                             item2total = item1amount+item2amount
                             item2qtytotal = item1qty + item2qty
 
+                            print("----------------------------------------------")
+                            print("                   Invoice                    ")
+                            print("----------------------------------------------")
+                            print("Code    Item Name   Price/Unit  Qty     Total")
+                            print("----------------------------------------------")
+                            length1 = len(itemname1)
+                            itemname1 = itemname1 + (17-length1)*" "
+                            print(f"{item_code1} : {itemname1}: {itemprice1} x\t{item1qty} \t{item1amount}")
+                            length2 = len(itemname2)
+                            itemname2 = itemname2 + (17-length2)*" "
+                            print(f"{item_code2} : {itemname2}: {itemprice2} x\t{item2qty} \t{item2amount}")
+                            print("----------------------------------------------")
+                            print(f"                          Grand Total = {item2total}")
                             print(f"Current Bill Amount is = {item2total}")
                             while True:
                                 in2 = input("1. Add another item\n2. Generate Incoice\n Enter your Choice : ")
@@ -489,6 +513,22 @@ while True:
                                         item3total = item1amount+item2amount+item3amount
                                         item3qtytotal = item1qty + item2qty + item3qty
 
+                                        print("----------------------------------------------")
+                                        print("                   Invoice                    ")
+                                        print("----------------------------------------------")
+                                        print("Code    Item Name   Price/Unit  Qty     Total")
+                                        print("----------------------------------------------")
+                                        length1 = len(itemname1)
+                                        itemname1 = itemname1 + (17-length1)*" "
+                                        print(f"{item_code1} : {itemname1}: {itemprice1} x\t{item1qty} \t{item1amount}")
+                                        length2 = len(itemname2)
+                                        itemname2 = itemname2 + (17-length2)*" "
+                                        print(f"{item_code2} : {itemname2}: {itemprice2} x\t{item2qty} \t{item2amount}")
+                                        length3 = len(itemname3)
+                                        itemname3 = itemname3 + (17-length3)*" "
+                                        print(f"{item_code3} : {itemname3}: {itemprice3} x\t{item3qty} \t{item3amount}")
+                                        print("----------------------------------------------")
+                                        print(f"                          Grand Total = {item3total}")
                                         print(f"Current Bill Amount is = {item3total}")
                                         while True:
                                             in3 = input("1. Add another item\n2. Generate Incoice\n Enter your Choice : ")
@@ -662,6 +702,25 @@ while True:
                                                     item4total = item1amount+item2amount+item3amount+item4amount
                                                     item4qtytotal = item1qty + item2qty + item3qty + item4qty
 
+                                                    print("----------------------------------------------")
+                                                    print("                   Invoice                    ")
+                                                    print("----------------------------------------------")
+                                                    print("Code    Item Name   Price/Unit  Qty     Total")
+                                                    print("----------------------------------------------")
+                                                    length1 = len(itemname1)
+                                                    itemname1 = itemname1 + (17-length1)*" "
+                                                    print(f"{item_code1} : {itemname1}: {itemprice1} x\t{item1qty} \t{item1amount}")
+                                                    length2 = len(itemname2)
+                                                    itemname2 = itemname2 + (17-length2)*" "
+                                                    print(f"{item_code2} : {itemname2}: {itemprice2} x\t{item2qty} \t{item2amount}")
+                                                    length3 = len(itemname3)
+                                                    itemname3 = itemname3 + (17-length3)*" "
+                                                    print(f"{item_code3} : {itemname3}: {itemprice3} x\t{item3qty} \t{item3amount}")
+                                                    length4 = len(itemname4)
+                                                    itemname4 = itemname4 + (17-length4)*" "
+                                                    print(f"{item_code4} : {itemname4}: {itemprice4} x\t{item4qty} \t{item4amount}")
+                                                    print("----------------------------------------------")
+                                                    print(f"                          Grand Total = {item4total}")
                                                     print(f"Current Bill Amount is = {item4total}")
                                                     while True:
                                                         in3 = input("1. Add another item\n2. Generate Incoice\n Enter your Choice : ")
@@ -839,6 +898,28 @@ while True:
                                                                 item5total = item1amount+item2amount+item3amount+item4amount+item5amount
                                                                 item5qtytotal = item1qty + item2qty + item3qty + item4qty + item5qty
 
+                                                                print("----------------------------------------------")
+                                                                print("                   Invoice                    ")
+                                                                print("----------------------------------------------")
+                                                                print("Code    Item Name   Price/Unit  Qty     Total")
+                                                                print("----------------------------------------------")
+                                                                length1 = len(itemname1)
+                                                                itemname1 = itemname1 + (17-length1)*" "
+                                                                print(f"{item_code1} : {itemname1}: {itemprice1} x\t{item1qty} \t{item1amount}")
+                                                                length2 = len(itemname2)
+                                                                itemname2 = itemname2 + (17-length2)*" "
+                                                                print(f"{item_code2} : {itemname2}: {itemprice2} x\t{item2qty} \t{item2amount}")
+                                                                length3 = len(itemname3)
+                                                                itemname3 = itemname3 + (17-length3)*" "
+                                                                print(f"{item_code3} : {itemname3}: {itemprice3} x\t{item3qty} \t{item3amount}")
+                                                                length4 = len(itemname4)
+                                                                itemname4 = itemname4 + (17-length4)*" "
+                                                                print(f"{item_code4} : {itemname4}: {itemprice4} x\t{item4qty} \t{item4amount}")
+                                                                length5 = len(itemname5)
+                                                                itemname5 = itemname5 + (17-length5)*" "
+                                                                print(f"{item_code5} : {itemname5}: {itemprice5} x\t{item5qty} \t{item5amount}")
+                                                                print("----------------------------------------------")
+                                                                print(f"                          Grand Total = {item5total}")
                                                                 print(f"Current Bill Amount is = {item5total}")
                                                                 while True:
                                                                     in3 = input("1. Add another item\n2. Generate Incoice\n Enter your Choice : ")
@@ -1020,6 +1101,31 @@ while True:
                                                                             item6total = item1amount+item2amount+item3amount+item4amount+item5amount+item6amount
                                                                             item6qtytotal = item1qty + item2qty + item3qty + item4qty + item5qty + item6qty
 
+                                                                            print("----------------------------------------------")
+                                                                            print("                   Invoice                    ")
+                                                                            print("----------------------------------------------")
+                                                                            print("Code    Item Name   Price/Unit  Qty     Total")
+                                                                            print("----------------------------------------------")
+                                                                            length1 = len(itemname1)
+                                                                            itemname1 = itemname1 + (17-length1)*" "
+                                                                            print(f"{item_code1} : {itemname1}: {itemprice1} x\t{item1qty} \t{item1amount}")
+                                                                            length2 = len(itemname2)
+                                                                            itemname2 = itemname2 + (17-length2)*" "
+                                                                            print(f"{item_code2} : {itemname2}: {itemprice2} x\t{item2qty} \t{item2amount}")
+                                                                            length3 = len(itemname3)
+                                                                            itemname3 = itemname3 + (17-length3)*" "
+                                                                            print(f"{item_code3} : {itemname3}: {itemprice3} x\t{item3qty} \t{item3amount}")
+                                                                            length4 = len(itemname4)
+                                                                            itemname4 = itemname4 + (17-length4)*" "
+                                                                            print(f"{item_code4} : {itemname4}: {itemprice4} x\t{item4qty} \t{item4amount}")
+                                                                            length5 = len(itemname5)
+                                                                            itemname5 = itemname5 + (17-length5)*" "
+                                                                            print(f"{item_code5} : {itemname5}: {itemprice5} x\t{item5qty} \t{item5amount}")
+                                                                            length6 = len(itemname6)
+                                                                            itemname6 = itemname6 + (17-length6)*" "
+                                                                            print(f"{item_code6} : {itemname6}: {itemprice6} x\t{item6qty} \t{item6amount}")
+                                                                            print("----------------------------------------------")
+                                                                            print(f"                          Grand Total = {item6total}")
                                                                             print(f"Current Bill Amount is = {item6total}")
                                                                             while True:
                                                                                 in3 = input("1. Add another item\n2. Generate Incoice\n Enter your Choice : ")
@@ -1205,6 +1311,34 @@ while True:
                                                                                         item7total = item1amount+item2amount+item3amount+item4amount+item5amount+item6amount+item7amount
                                                                                         item7qtytotal = item1qty + item2qty + item3qty + item4qty + item5qty + item6qty + item7qty
 
+                                                                                        print("----------------------------------------------")
+                                                                                        print("                   Invoice                    ")
+                                                                                        print("----------------------------------------------")
+                                                                                        print("Code    Item Name   Price/Unit  Qty     Total")
+                                                                                        print("----------------------------------------------")
+                                                                                        length1 = len(itemname1)
+                                                                                        itemname1 = itemname1 + (17-length1)*" "
+                                                                                        print(f"{item_code1} : {itemname1}: {itemprice1} x\t{item1qty} \t{item1amount}")
+                                                                                        length2 = len(itemname2)
+                                                                                        itemname2 = itemname2 + (17-length2)*" "
+                                                                                        print(f"{item_code2} : {itemname2}: {itemprice2} x\t{item2qty} \t{item2amount}")
+                                                                                        length3 = len(itemname3)
+                                                                                        itemname3 = itemname3 + (17-length3)*" "
+                                                                                        print(f"{item_code3} : {itemname3}: {itemprice3} x\t{item3qty} \t{item3amount}")
+                                                                                        length4 = len(itemname4)
+                                                                                        itemname4 = itemname4 + (17-length4)*" "
+                                                                                        print(f"{item_code4} : {itemname4}: {itemprice4} x\t{item4qty} \t{item4amount}")
+                                                                                        length5 = len(itemname5)
+                                                                                        itemname5 = itemname5 + (17-length5)*" "
+                                                                                        print(f"{item_code5} : {itemname5}: {itemprice5} x\t{item5qty} \t{item5amount}")
+                                                                                        length6 = len(itemname6)
+                                                                                        itemname6 = itemname6 + (17-length6)*" "
+                                                                                        print(f"{item_code6} : {itemname6}: {itemprice6} x\t{item6qty} \t{item6amount}")
+                                                                                        length7 = len(itemname7)
+                                                                                        itemname7 = itemname7 + (17-length7)*" "
+                                                                                        print(f"{item_code7} : {itemname7}: {itemprice7} x\t{item7qty} \t{item7amount}")
+                                                                                        print("----------------------------------------------")
+                                                                                        print(f"                          Grand Total = {item7total}")
                                                                                         print(f"Current Bill Amount is = {item7total}")
                                                                                         while True:
                                                                                             in3 = input("1. Add another item\n2. Generate Incoice\n Enter your Choice : ")
@@ -1394,6 +1528,37 @@ while True:
                                                                                                     item8total = item1amount+item2amount+item3amount+item4amount+item5amount+item6amount+item7amount+item8amount
                                                                                                     item8qtytotal = item1qty + item2qty + item3qty + item4qty + item5qty + item6qty + item7qty + item8qty
 
+                                                                                                    print("----------------------------------------------")
+                                                                                                    print("                   Invoice                    ")
+                                                                                                    print("----------------------------------------------")
+                                                                                                    print("Code    Item Name   Price/Unit  Qty     Total")
+                                                                                                    print("----------------------------------------------")
+                                                                                                    length1 = len(itemname1)
+                                                                                                    itemname1 = itemname1 + (17-length1)*" "
+                                                                                                    print(f"{item_code1} : {itemname1}: {itemprice1} x\t{item1qty} \t{item1amount}")
+                                                                                                    length2 = len(itemname2)
+                                                                                                    itemname2 = itemname2 + (17-length2)*" "
+                                                                                                    print(f"{item_code2} : {itemname2}: {itemprice2} x\t{item2qty} \t{item2amount}")
+                                                                                                    length3 = len(itemname3)
+                                                                                                    itemname3 = itemname3 + (17-length3)*" "
+                                                                                                    print(f"{item_code3} : {itemname3}: {itemprice3} x\t{item3qty} \t{item3amount}")
+                                                                                                    length4 = len(itemname4)
+                                                                                                    itemname4 = itemname4 + (17-length4)*" "
+                                                                                                    print(f"{item_code4} : {itemname4}: {itemprice4} x\t{item4qty} \t{item4amount}")
+                                                                                                    length5 = len(itemname5)
+                                                                                                    itemname5 = itemname5 + (17-length5)*" "
+                                                                                                    print(f"{item_code5} : {itemname5}: {itemprice5} x\t{item5qty} \t{item5amount}")
+                                                                                                    length6 = len(itemname6)
+                                                                                                    itemname6 = itemname6 + (17-length6)*" "
+                                                                                                    print(f"{item_code6} : {itemname6}: {itemprice6} x\t{item6qty} \t{item6amount}")
+                                                                                                    length7 = len(itemname7)
+                                                                                                    itemname7 = itemname7 + (17-length7)*" "
+                                                                                                    print(f"{item_code7} : {itemname7}: {itemprice7} x\t{item7qty} \t{item7amount}")
+                                                                                                    length8 = len(itemname8)
+                                                                                                    itemname8 = itemname8 + (17-length8)*" "
+                                                                                                    print(f"{item_code8} : {itemname8}: {itemprice8} x\t{item8qty} \t{item8amount}")
+                                                                                                    print("----------------------------------------------")
+                                                                                                    print(f"                          Grand Total = {item8total}")
                                                                                                     print(f"Current Bill Amount is = {item8total}")
                                                                                                     while True:
                                                                                                         in3 = input("2. Generate Incoice\n Enter your Choice : ")
