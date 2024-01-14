@@ -1,6 +1,8 @@
+from dis import dis
 from fileinput import filename
 from glob import escape
 import os
+from pickle import TRUE
 from timeit import repeat
 from xmlrpc.client import TRANSPORT_ERROR
 import datetime
@@ -184,17 +186,36 @@ while True:
                         print("Invalid Input! Please Try Again.")
                 if generateinvoice1 == 1:
                     while True:
+                        while TRUE:
+                            discount = input("Enter Discount Amount : ")
+                            if discount.isnumeric() and int(discount) >= 0 and int(discount) <= 500 :
+                                discount = int(discount)
+                                newitem1amount = item1amount - discount
+                                break
+                            else:
+                                print("Invalid Input")
                         paymode = input("Payment Mode:\n1. Cash Payment\n2. Upi Payment\n Enter your Choice : ")
                         if paymode == "1" or paymode == "2":
                             if paymode == "1":
-                                filetemp = "Templetes//1.docx"
-                                break
+                                if discount == 0 :
+                                    filetemp = "Templetes//1.docx"
+                                    break
+                                else:
+                                    filetemp = "Templetes//1 D.docx"
+                                    break
                             elif paymode == "2":
-                                filetemp = "Templetes//1QR.docx"
-                                link = f"upi://pay?pa=nanigopalkaran77777@oksbi&pn=Tasty Confectionary&am={item1amount}&tn=Tasty Confectionary&cu=INR"
-                                img = qrcode.make(link)
-                                img.save("qrcode.png")
-                                break
+                                if discount == 0:    
+                                    filetemp = "Templetes//1QR.docx"
+                                    link = f"upi://pay?pa=nanigopalkaran77777@oksbi&pn=Tasty Confectionary&am={item1amount}&tn=Tasty Confectionary&cu=INR"
+                                    img = qrcode.make(link)
+                                    img.save("qrcode.png")
+                                    break
+                                else:    
+                                    filetemp = "Templetes//1QR D.docx"
+                                    link = f"upi://pay?pa=nanigopalkaran77777@oksbi&pn=Tasty Confectionary&am={newitem1amount}&tn=Tasty Confectionary&cu=INR"
+                                    img = qrcode.make(link)
+                                    img.save("qrcode.png")
+                                    break
                         else:
                             print("Invalid Input! Please Try Again.")
                     # files = os.listdir(directory_path)
@@ -217,8 +238,9 @@ while True:
                     rep_word(f"Invoices//{current_date}//{invno}.docx", "114", f"{itemname1}")
                     rep_word(f"Invoices//{current_date}//{invno}.docx", "115", f"{item1qty}")
                     rep_word(f"Invoices//{current_date}//{invno}.docx", "116", f"{item1amount}")
+                    rep_word(f"Invoices//{current_date}//{invno}.docx", "666", f"{discount}")
                     rep_word(f"Invoices//{current_date}//{invno}.docx", "117", f"{item1qty}")
-                    rep_word(f"Invoices//{current_date}//{invno}.docx", "118", f"{item1amount}")
+                    rep_word(f"Invoices//{current_date}//{invno}.docx", "118", f"{newitem1amount}")
                     if paymode == "2":
                         document = Document(f"Invoices//{current_date}//{invno}.docx")
                         paragraph = document.add_paragraph()
@@ -362,17 +384,36 @@ while True:
                             if generateinvoice2 == 1:
                                 generateinvoice2 = 0
                                 while True:
+                                    while TRUE:
+                                        discount = input("Enter Discount Amount : ")
+                                        if discount.isnumeric() and int(discount) >= 0 and int(discount) <= 500 :
+                                            discount = int(discount)
+                                            newitem2total = item2total - discount
+                                            break
+                                        else:
+                                            print("Invalid Input")
                                     paymode2 = input("Payment Mode:\n1. Cash Payment\n2. Upi Payment\n Enter your Choice : ")
                                     if paymode2 == "1" or paymode2 == "2":
                                         if paymode2 == "1":
-                                            file2 = "Templetes//2.docx"
-                                            break
+                                            if discount == 0 :
+                                                filetemp = "Templetes//2.docx"
+                                                break
+                                            else:
+                                                filetemp = "Templetes//2 D.docx"
+                                                break
                                         elif paymode2 == "2":
-                                            file2 = "Templetes//2QR.docx"
-                                            link = f"upi://pay?pa=nanigopalkaran77777@oksbi&pn=Tasty Confectionary&am={item2total}&tn=Tasty Confectionary&cu=INR"
-                                            img = qrcode.make(link)
-                                            img.save("qrcode.png")
-                                            break
+                                            if discount == 0:    
+                                                filetemp = "Templetes//2QR.docx"
+                                                link = f"upi://pay?pa=nanigopalkaran77777@oksbi&pn=Tasty Confectionary&am={item2total}&tn=Tasty Confectionary&cu=INR"
+                                                img = qrcode.make(link)
+                                                img.save("qrcode.png")
+                                                break
+                                            else:    
+                                                filetemp = "Templetes//2QR D.docx"
+                                                link = f"upi://pay?pa=nanigopalkaran77777@oksbi&pn=Tasty Confectionary&am={newitem2total}&tn=Tasty Confectionary&cu=INR"
+                                                img = qrcode.make(link)
+                                                img.save("qrcode.png")
+                                                break
                                     else:
                                         print("Invalid Input! Please Try Again.")
                                 fileCounter = 0
@@ -388,7 +429,7 @@ while True:
                                 isExist = os.path.exists(f"Invoices//{current_date}")
                                 if not isExist:
                                     os.makedirs(f"Invoices//{current_date}")
-                                rep_word(f"{file2}", "111", f"INV {invno}")
+                                rep_word(f"{filetemp}", "111", f"INV {invno}")
                                 rep_word(f"Invoices//{current_date}//{invno}.docx", "112", f"{current_datetime}")
                                 rep_word(f"Invoices//{current_date}//{invno}.docx", "114", f"{itemname1}")
                                 rep_word(f"Invoices//{current_date}//{invno}.docx", "115", f"{item1qty}")
@@ -396,8 +437,9 @@ while True:
                                 rep_word(f"Invoices//{current_date}//{invno}.docx", "117", f"{itemname2}")
                                 rep_word(f"Invoices//{current_date}//{invno}.docx", "118", f"{item2qty}")
                                 rep_word(f"Invoices//{current_date}//{invno}.docx", "119", f"{item2amount}")
+                                rep_word(f"Invoices//{current_date}//{invno}.docx", "666", f"{discount}")
                                 rep_word(f"Invoices//{current_date}//{invno}.docx", "55", f"{item2qtytotal}")
-                                rep_word(f"Invoices//{current_date}//{invno}.docx", "99", f"{item2total}")
+                                rep_word(f"Invoices//{current_date}//{invno}.docx", "99", f"{newitem2total}")
                                 # print(item2total, "=" , item2qtytotal)
                                 if paymode2 == "2":
                                     document = Document(f"Invoices//{current_date}//{invno}.docx")
