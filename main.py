@@ -12,10 +12,10 @@ import os
 import qrcode
 from docx import Document
 from docx.shared import Inches
+
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 import maskpass  # to hide the password
  
-
 directory_path = 'Invoices'
 
 def rep_word(doc_name, old_word, new_word):
@@ -1735,8 +1735,7 @@ while True:
                 if esc == 1:
                     break
             if esc == 1:
-                break
-                    
+                break  
             # Reprint last Invoice
     elif choice == "2":
         fileCounter = 0
