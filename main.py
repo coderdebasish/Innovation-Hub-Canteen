@@ -2301,10 +2301,3 @@ while True:
                 # exit
                 escape_num = 1
                 break
-                 
-            
-            
-                    
-        
-
-    
